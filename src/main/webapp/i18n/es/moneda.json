@@ -1,0 +1,9 @@
+{
+    "paynowApp": {
+        "Moneda" : {
+            "null": "",
+            "PESOS": "PESOS",
+            "DOLAR": "DOLAR"
+        }
+    }
+}

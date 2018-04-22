@@ -8,6 +8,7 @@
             "entities": {
                 "main": "Entidades",
                 "app": "App",
+                "saldoApp": "Saldo App",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

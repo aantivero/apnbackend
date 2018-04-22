@@ -1,0 +1,25 @@
+
+{
+    "paynowApp": {
+        "saldoApp" : {
+            "home": {
+                "title": "Saldo Apps",
+                "createLabel": "Create a new Saldo App",
+                "createOrEditLabel": "Create or edit a Saldo App",
+                "search": "Search for Saldo App"
+            },
+            "created": "A new Saldo App is created with identifier {{ param }}",
+            "updated": "A Saldo App is updated with identifier {{ param }}",
+            "deleted": "A Saldo App is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Saldo App {{ id }}?"
+            },
+            "detail": {
+                "title": "Saldo App"
+            },
+            "moneda": "Moneda",
+            "monto": "Monto",
+            "app": "App"
+        }
+    }
+}

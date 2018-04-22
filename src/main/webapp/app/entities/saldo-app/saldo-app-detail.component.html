@@ -1,0 +1,36 @@
+
+<div *ngIf="saldoApp">
+    <h2><span jhiTranslate="paynowApp.saldoApp.detail.title">Saldo App</span> {{saldoApp.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.saldoApp.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + saldoApp.moneda}}">{{saldoApp.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldoApp.monto">Monto</span></dt>
+        <dd>
+            <span>{{saldoApp.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldoApp.app">App</span></dt>
+        <dd>
+            <div *ngIf="saldoApp.app">
+                <a [routerLink]="['/app', saldoApp.app?.id]">{{saldoApp.app?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'saldo-app/'+ saldoApp.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
