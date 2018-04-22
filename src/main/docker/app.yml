@@ -1,0 +1,19 @@
+version: '2'
+services:
+    paynow-app:
+        image: paynow
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://paynow-postgresql:5432/paynow
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=paynow-elasticsearch:9300
+        ports:
+            - 8080:8080
+    paynow-postgresql:
+        extends:
+            file: postgresql.yml
+            service: paynow-postgresql
+    paynow-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: paynow-elasticsearch
