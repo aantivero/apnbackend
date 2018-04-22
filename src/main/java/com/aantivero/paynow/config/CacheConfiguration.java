@@ -44,6 +44,7 @@ public class CacheConfiguration {
             cm.createCache(com.aantivero.paynow.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.aantivero.paynow.domain.App.class.getName(), jcacheConfiguration);
             cm.createCache(com.aantivero.paynow.domain.SaldoApp.class.getName(), jcacheConfiguration);
+            cm.createCache(com.aantivero.paynow.domain.Banco.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

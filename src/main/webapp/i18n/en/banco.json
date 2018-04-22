@@ -1,0 +1,24 @@
+
+{
+    "paynowApp": {
+        "banco" : {
+            "home": {
+                "title": "Bancos",
+                "createLabel": "Create a new Banco",
+                "createOrEditLabel": "Create or edit a Banco",
+                "search": "Search for Banco"
+            },
+            "created": "A new Banco is created with identifier {{ param }}",
+            "updated": "A Banco is updated with identifier {{ param }}",
+            "deleted": "A Banco is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Banco {{ id }}?"
+            },
+            "detail": {
+                "title": "Banco"
+            },
+            "nombre": "Nombre",
+            "codigo": "Codigo"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+
+{
+    "paynowApp": {
+        "banco" : {
+            "home": {
+                "title": "Bancos",
+                "createLabel": "Crear nuevo Banco",
+                "createOrEditLabel": "Crear o editar Banco",
+                "search": "Search for Banco"
+            },
+            "created": "Un nuevo Banco ha sido creado con el identificador {{ param }}",
+            "updated": "Un Banco ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Banco ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Banco {{ id }}?"
+            },
+            "detail": {
+                "title": "Banco"
+            },
+            "nombre": "Nombre",
+            "codigo": "Codigo"
+        }
+    }
+}
