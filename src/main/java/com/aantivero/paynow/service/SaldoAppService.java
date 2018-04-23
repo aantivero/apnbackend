@@ -1,6 +1,8 @@
 package com.aantivero.paynow.service;
 
+import com.aantivero.paynow.domain.App;
 import com.aantivero.paynow.domain.SaldoApp;
+import com.aantivero.paynow.domain.enumeration.Moneda;
 import com.aantivero.paynow.repository.SaldoAppRepository;
 import com.aantivero.paynow.repository.search.SaldoAppSearchRepository;
 import org.slf4j.Logger;
@@ -92,4 +94,12 @@ public class SaldoAppService {
         Page<SaldoApp> result = saldoAppSearchRepository.search(queryStringQuery(query), pageable);
         return result;
     }
+
+    @Transactional(readOnly = true)
+    public SaldoApp searchByAppAndMoneda(App app, Moneda moneda) {
+        log.debug("Buscar Saldo por Moneda y App");
+        SaldoApp result = saldoAppRepository.findByAppAndMoneda(app, moneda);
+        return result;
+    }
+
 }

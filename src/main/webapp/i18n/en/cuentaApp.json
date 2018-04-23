@@ -1,0 +1,29 @@
+
+{
+    "paynowApp": {
+        "cuentaApp" : {
+            "home": {
+                "title": "Cuenta Apps",
+                "createLabel": "Create a new Cuenta App",
+                "createOrEditLabel": "Create or edit a Cuenta App",
+                "search": "Search for Cuenta App"
+            },
+            "created": "A new Cuenta App is created with identifier {{ param }}",
+            "updated": "A Cuenta App is updated with identifier {{ param }}",
+            "deleted": "A Cuenta App is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cuenta App {{ id }}?"
+            },
+            "detail": {
+                "title": "Cuenta App"
+            },
+            "nombre": "Nombre",
+            "aliasCbu": "Alias Cbu",
+            "cbu": "Cbu",
+            "moneda": "Moneda",
+            "saldo": "Saldo",
+            "banco": "Banco",
+            "app": "App"
+        }
+    }
+}

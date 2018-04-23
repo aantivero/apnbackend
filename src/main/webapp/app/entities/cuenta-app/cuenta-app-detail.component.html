@@ -1,0 +1,54 @@
+
+<div *ngIf="cuentaApp">
+    <h2><span jhiTranslate="paynowApp.cuentaApp.detail.title">Cuenta App</span> {{cuentaApp.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.cuentaApp.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{cuentaApp.nombre}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.aliasCbu">Alias Cbu</span></dt>
+        <dd>
+            <span>{{cuentaApp.aliasCbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.cbu">Cbu</span></dt>
+        <dd>
+            <span>{{cuentaApp.cbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + cuentaApp.moneda}}">{{cuentaApp.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.saldo">Saldo</span></dt>
+        <dd>
+            <span>{{cuentaApp.saldo}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.banco">Banco</span></dt>
+        <dd>
+            <div *ngIf="cuentaApp.banco">
+                <a [routerLink]="['/banco', cuentaApp.banco?.id]">{{cuentaApp.banco?.nombre}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuentaApp.app">App</span></dt>
+        <dd>
+            <div *ngIf="cuentaApp.app">
+                <a [routerLink]="['/app', cuentaApp.app?.id]">{{cuentaApp.app?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cuenta-app/'+ cuentaApp.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
