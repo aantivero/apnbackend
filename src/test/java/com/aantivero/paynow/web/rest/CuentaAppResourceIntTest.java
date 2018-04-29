@@ -54,7 +54,7 @@ public class CuentaAppResourceIntTest {
     private static final String UPDATED_CBU = "BBBBBBBBBB";
 
     private static final Moneda DEFAULT_MONEDA = Moneda.PESOS;
-    private static final Moneda UPDATED_MONEDA = Moneda.DOLAR;
+    private static final Moneda UPDATED_MONEDA = Moneda.PESOS;
 
     private static final BigDecimal DEFAULT_SALDO = new BigDecimal(1);
     private static final BigDecimal UPDATED_SALDO = new BigDecimal(2);
