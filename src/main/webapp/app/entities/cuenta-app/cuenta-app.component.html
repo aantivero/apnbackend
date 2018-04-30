@@ -47,7 +47,7 @@
                 <td>{{cuentaApp.aliasCbu}}</td>
                 <td>{{cuentaApp.cbu}}</td>
                 <td jhiTranslate="{{'paynowApp.Moneda.' + cuentaApp.moneda}}">{{cuentaApp.moneda}}</td>
-                <td>{{cuentaApp.saldo}}</td>
+                <td>{{cuentaApp.saldo | currency}}</td>
                 <td>
                     <div *ngIf="cuentaApp.banco">
                         <a [routerLink]="['../banco', cuentaApp.banco?.id ]" >{{cuentaApp.banco?.nombre}}</a>
