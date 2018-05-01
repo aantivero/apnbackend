@@ -1,0 +1,141 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTransferenciaAppLabel" jhiTranslate="paynowApp.transferenciaApp.home.createOrEditLabel">Create or edit a Transferencia App</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!transferenciaApp.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="transferenciaApp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.destinoCbu" for="field_destinoCbu">Destino Cbu</label>
+            <input type="text" class="form-control" name="destinoCbu" id="field_destinoCbu"
+                [(ngModel)]="transferenciaApp.destinoCbu" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.destinoAlias" for="field_destinoAlias">Destino Alias</label>
+            <input type="text" class="form-control" name="destinoAlias" id="field_destinoAlias"
+                [(ngModel)]="transferenciaApp.destinoAlias" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.destinoInfo" for="field_destinoInfo">Destino Info</label>
+            <input type="text" class="form-control" name="destinoInfo" id="field_destinoInfo"
+                [(ngModel)]="transferenciaApp.destinoInfo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.moneda" for="field_moneda">Moneda</label>
+            <select class="form-control" name="moneda" [(ngModel)]="transferenciaApp.moneda" id="field_moneda"  required>
+                <option value="PESOS">{{'paynowApp.Moneda.PESOS' | translate}}</option>
+                <option value="DOLAR">{{'paynowApp.Moneda.DOLAR' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.moneda?.dirty && editForm.controls.moneda?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.moneda?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.monto" for="field_monto">Monto</label>
+            <input type="number" class="form-control" name="monto" id="field_monto"
+                [(ngModel)]="transferenciaApp.monto" required/>
+            <div [hidden]="!(editForm.controls.monto?.dirty && editForm.controls.monto?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.monto?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.monto?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.descripcion" for="field_descripcion">Descripcion</label>
+            <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                [(ngModel)]="transferenciaApp.descripcion" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.estadoTransferencia" for="field_estadoTransferencia">Estado Transferencia</label>
+            <select class="form-control" name="estadoTransferencia" [(ngModel)]="transferenciaApp.estadoTransferencia" id="field_estadoTransferencia"  required>
+                <option value="ENVIADA">{{'paynowApp.EstadoTransferencia.ENVIADA' | translate}}</option>
+                <option value="ACEPTADA">{{'paynowApp.EstadoTransferencia.ACEPTADA' | translate}}</option>
+                <option value="RECHAZADA">{{'paynowApp.EstadoTransferencia.RECHAZADA' | translate}}</option>
+                <option value="ERROR">{{'paynowApp.EstadoTransferencia.ERROR' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.estadoTransferencia?.dirty && editForm.controls.estadoTransferencia?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.estadoTransferencia?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.timestamp" for="field_timestamp">Timestamp</label>
+            <div class="d-flex">
+                <input id="field_timestamp" type="datetime-local" class="form-control" name="timestamp" [(ngModel)]="transferenciaApp.timestamp"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.timestamp?.dirty && editForm.controls.timestamp?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.timestamp?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.timestamp?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.descripcionEstado" for="field_descripcionEstado">Descripcion Estado</label>
+            <input type="text" class="form-control" name="descripcionEstado" id="field_descripcionEstado"
+                [(ngModel)]="transferenciaApp.descripcionEstado" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.identificacion" for="field_identificacion">Identificacion</label>
+            <input type="text" class="form-control" name="identificacion" id="field_identificacion"
+                [(ngModel)]="transferenciaApp.identificacion" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.origen" for="field_origen">Origen</label>
+            <select class="form-control" id="field_origen" name="origen" [(ngModel)]="transferenciaApp.origen"  required>
+                <option *ngIf="!editForm.value.origen" [ngValue]="null" selected></option>
+                <option [ngValue]="cuentaAppOption.id === transferenciaApp.origen?.id ? transferenciaApp.origen : cuentaAppOption" *ngFor="let cuentaAppOption of cuentaapps; trackBy: trackCuentaAppById">{{cuentaAppOption.nombre}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.origen?.dirty && editForm.controls.origen?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.origen?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.destinoBanco" for="field_destinoBanco">Destino Banco</label>
+            <select class="form-control" id="field_destinoBanco" name="destinoBanco" [(ngModel)]="transferenciaApp.destinoBanco"  required>
+                <option *ngIf="!editForm.value.destinoBanco" [ngValue]="null" selected></option>
+                <option [ngValue]="bancoOption.id === transferenciaApp.destinoBanco?.id ? transferenciaApp.destinoBanco : bancoOption" *ngFor="let bancoOption of bancos; trackBy: trackBancoById">{{bancoOption.nombre}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.destinoBanco?.dirty && editForm.controls.destinoBanco?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.destinoBanco?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

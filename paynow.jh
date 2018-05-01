@@ -1,0 +1,35 @@
+// JDL definition for application 'paynow' generated with command 'jhipster export-jdl'
+
+entity App (app) {
+  nombre String required minlength(2)
+}
+entity SaldoApp (saldo_app) {
+  moneda Moneda required,
+  monto BigDecimal required
+}
+entity Banco (banco) {
+  nombre String required minlength(3),
+  codigo String required minlength(2)
+}
+entity CuentaApp (cuenta_app) {
+  nombre String required minlength(2),
+  aliasCbu String required,
+  cbu String required,
+  moneda Moneda required,
+  saldo BigDecimal required
+}
+
+enum Moneda {
+  PESOS,
+   DOLAR
+}
+
+relationship ManyToOne {
+  SaldoApp{app(nombre) required} to App,
+  CuentaApp{banco(nombre) required} to Banco,
+  CuentaApp{app(nombre) required} to App
+}
+
+paginate App, SaldoApp, Banco, CuentaApp with pagination
+service App, SaldoApp, Banco, CuentaApp with serviceClass
+filter App

@@ -1,0 +1,85 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "origen",
+            "otherEntityName": "cuentaApp",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "destinoBanco",
+            "otherEntityName": "banco",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "destinoCbu",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "destinoAlias",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "destinoInfo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "moneda",
+            "fieldType": "Moneda",
+            "fieldValues": "PESOS, DOLAR",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "monto",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "estadoTransferencia",
+            "fieldType": "EstadoTransferencia",
+            "fieldValues": "ENVIADA, ACEPTADA, RECHAZADA, ERROR",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "timestamp",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcionEstado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "identificacion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180501032904",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "transferencia_app",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

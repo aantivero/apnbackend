@@ -1,0 +1,74 @@
+
+<div *ngIf="transferenciaApp">
+    <h2><span jhiTranslate="paynowApp.transferenciaApp.detail.title">Transferencia App</span> {{transferenciaApp.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.destinoCbu">Destino Cbu</span></dt>
+        <dd>
+            <span>{{transferenciaApp.destinoCbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.destinoAlias">Destino Alias</span></dt>
+        <dd>
+            <span>{{transferenciaApp.destinoAlias}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.destinoInfo">Destino Info</span></dt>
+        <dd>
+            <span>{{transferenciaApp.destinoInfo}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + transferenciaApp.moneda}}">{{transferenciaApp.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.monto">Monto</span></dt>
+        <dd>
+            <span>{{transferenciaApp.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{transferenciaApp.descripcion}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.estadoTransferencia">Estado Transferencia</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.EstadoTransferencia.' + transferenciaApp.estadoTransferencia}}">{{transferenciaApp.estadoTransferencia}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.timestamp">Timestamp</span></dt>
+        <dd>
+            <span>{{transferenciaApp.timestamp | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.descripcionEstado">Descripcion Estado</span></dt>
+        <dd>
+            <span>{{transferenciaApp.descripcionEstado}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.identificacion">Identificacion</span></dt>
+        <dd>
+            <span>{{transferenciaApp.identificacion}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.origen">Origen</span></dt>
+        <dd>
+            <div *ngIf="transferenciaApp.origen">
+                <a [routerLink]="['/cuenta-app', transferenciaApp.origen?.id]">{{transferenciaApp.origen?.nombre}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.destinoBanco">Destino Banco</span></dt>
+        <dd>
+            <div *ngIf="transferenciaApp.destinoBanco">
+                <a [routerLink]="['/banco', transferenciaApp.destinoBanco?.id]">{{transferenciaApp.destinoBanco?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'transferencia-app/'+ transferenciaApp.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

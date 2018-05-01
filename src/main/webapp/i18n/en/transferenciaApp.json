@@ -1,0 +1,34 @@
+
+{
+    "paynowApp": {
+        "transferenciaApp" : {
+            "home": {
+                "title": "Transferencia Apps",
+                "createLabel": "Create a new Transferencia App",
+                "createOrEditLabel": "Create or edit a Transferencia App",
+                "search": "Search for Transferencia App"
+            },
+            "created": "A new Transferencia App is created with identifier {{ param }}",
+            "updated": "A Transferencia App is updated with identifier {{ param }}",
+            "deleted": "A Transferencia App is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Transferencia App {{ id }}?"
+            },
+            "detail": {
+                "title": "Transferencia App"
+            },
+            "destinoCbu": "Destino Cbu",
+            "destinoAlias": "Destino Alias",
+            "destinoInfo": "Destino Info",
+            "moneda": "Moneda",
+            "monto": "Monto",
+            "descripcion": "Descripcion",
+            "estadoTransferencia": "Estado Transferencia",
+            "timestamp": "Timestamp",
+            "descripcionEstado": "Descripcion Estado",
+            "identificacion": "Identificacion",
+            "origen": "Origen",
+            "destinoBanco": "Destino Banco"
+        }
+    }
+}

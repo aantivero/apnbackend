@@ -1,0 +1,109 @@
+<div>
+    <h2>
+        <span jhiTranslate="paynowApp.transferenciaApp.home.title">Transferencia Apps</span>
+        <button class="btn btn-primary float-right jh-create-entity create-transferencia-app" [routerLink]="['/', { outlets: { popup: ['transferencia-app-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="paynowApp.transferenciaApp.home.createLabel">
+            Create new Transferencia App
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'paynowApp.transferenciaApp.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="transferenciaApps">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="destinoCbu"><span jhiTranslate="paynowApp.transferenciaApp.destinoCbu">Destino Cbu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="destinoAlias"><span jhiTranslate="paynowApp.transferenciaApp.destinoAlias">Destino Alias</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="destinoInfo"><span jhiTranslate="paynowApp.transferenciaApp.destinoInfo">Destino Info</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="moneda"><span jhiTranslate="paynowApp.transferenciaApp.moneda">Moneda</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="monto"><span jhiTranslate="paynowApp.transferenciaApp.monto">Monto</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="descripcion"><span jhiTranslate="paynowApp.transferenciaApp.descripcion">Descripcion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="estadoTransferencia"><span jhiTranslate="paynowApp.transferenciaApp.estadoTransferencia">Estado Transferencia</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="timestamp"><span jhiTranslate="paynowApp.transferenciaApp.timestamp">Timestamp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="descripcionEstado"><span jhiTranslate="paynowApp.transferenciaApp.descripcionEstado">Descripcion Estado</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="identificacion"><span jhiTranslate="paynowApp.transferenciaApp.identificacion">Identificacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="origen.nombre"><span jhiTranslate="paynowApp.transferenciaApp.origen">Origen</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="destinoBanco.nombre"><span jhiTranslate="paynowApp.transferenciaApp.destinoBanco">Destino Banco</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transferenciaApp of transferenciaApps ;trackBy: trackId">
+                <td><a [routerLink]="['../transferencia-app', transferenciaApp.id ]">{{transferenciaApp.id}}</a></td>
+                <td>{{transferenciaApp.destinoCbu}}</td>
+                <td>{{transferenciaApp.destinoAlias}}</td>
+                <td>{{transferenciaApp.destinoInfo}}</td>
+                <td jhiTranslate="{{'paynowApp.Moneda.' + transferenciaApp.moneda}}">{{transferenciaApp.moneda}}</td>
+                <td>{{transferenciaApp.monto}}</td>
+                <td>{{transferenciaApp.descripcion}}</td>
+                <td jhiTranslate="{{'paynowApp.EstadoTransferencia.' + transferenciaApp.estadoTransferencia}}">{{transferenciaApp.estadoTransferencia}}</td>
+                <td>{{transferenciaApp.timestamp | date:'medium'}}</td>
+                <td>{{transferenciaApp.descripcionEstado}}</td>
+                <td>{{transferenciaApp.identificacion}}</td>
+                <td>
+                    <div *ngIf="transferenciaApp.origen">
+                        <a [routerLink]="['../cuenta-app', transferenciaApp.origen?.id ]" >{{transferenciaApp.origen?.nombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transferenciaApp.destinoBanco">
+                        <a [routerLink]="['../banco', transferenciaApp.destinoBanco?.id ]" >{{transferenciaApp.destinoBanco?.nombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../transferencia-app', transferenciaApp.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'transferencia-app/'+ transferenciaApp.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'transferencia-app/'+ transferenciaApp.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="transferenciaApps && transferenciaApps.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

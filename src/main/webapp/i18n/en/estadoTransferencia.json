@@ -1,0 +1,11 @@
+{
+    "paynowApp": {
+        "EstadoTransferencia" : {
+            "null": "",
+            "ENVIADA": "ENVIADA",
+            "ACEPTADA": "ACEPTADA",
+            "RECHAZADA": "RECHAZADA",
+            "ERROR": "ERROR"
+        }
+    }
+}

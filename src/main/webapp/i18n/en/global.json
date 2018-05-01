@@ -11,6 +11,7 @@
                 "saldoApp": "Saldo App",
                 "banco": "Banco",
                 "cuentaApp": "Cuenta App",
+                "transferenciaApp": "Transferencia App",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
