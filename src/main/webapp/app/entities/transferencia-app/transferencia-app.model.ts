@@ -12,6 +12,11 @@ export const enum EstadoTransferencia {
     ' ERROR'
 }
 
+export const enum TipoTransferencia {
+    'DEBIN',
+    ' TRANSFERENCIA'
+}
+
 export class TransferenciaApp implements BaseEntity {
     constructor(
         public id?: number,
@@ -25,6 +30,7 @@ export class TransferenciaApp implements BaseEntity {
         public timestamp?: any,
         public descripcionEstado?: string,
         public identificacion?: string,
+        public tipoTransferencia?: TipoTransferencia,
         public origen?: BaseEntity,
         public destinoBanco?: BaseEntity,
     ) {

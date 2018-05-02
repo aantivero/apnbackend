@@ -16,6 +16,8 @@ import com.aantivero.paynow.domain.enumeration.Moneda;
 
 import com.aantivero.paynow.domain.enumeration.EstadoTransferencia;
 
+import com.aantivero.paynow.domain.enumeration.TipoTransferencia;
+
 /**
  * A TransferenciaApp.
  */
@@ -67,6 +69,11 @@ public class TransferenciaApp implements Serializable {
 
     @Column(name = "identificacion")
     private String identificacion;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_transferencia", nullable = false)
+    private TipoTransferencia tipoTransferencia;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -215,6 +222,19 @@ public class TransferenciaApp implements Serializable {
         this.identificacion = identificacion;
     }
 
+    public TipoTransferencia getTipoTransferencia() {
+        return tipoTransferencia;
+    }
+
+    public TransferenciaApp tipoTransferencia(TipoTransferencia tipoTransferencia) {
+        this.tipoTransferencia = tipoTransferencia;
+        return this;
+    }
+
+    public void setTipoTransferencia(TipoTransferencia tipoTransferencia) {
+        this.tipoTransferencia = tipoTransferencia;
+    }
+
     public CuentaApp getOrigen() {
         return origen;
     }
@@ -276,6 +296,7 @@ public class TransferenciaApp implements Serializable {
             ", timestamp='" + getTimestamp() + "'" +
             ", descripcionEstado='" + getDescripcionEstado() + "'" +
             ", identificacion='" + getIdentificacion() + "'" +
+            ", tipoTransferencia='" + getTipoTransferencia() + "'" +
             "}";
     }
 }

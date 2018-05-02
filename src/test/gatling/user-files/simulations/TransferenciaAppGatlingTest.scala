@@ -68,7 +68,7 @@ class TransferenciaAppGatlingTest extends Simulation {
             .exec(http("Create new transferenciaApp")
             .post("/api/transferencia-apps")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "destinoCbu":"SAMPLE_TEXT", "destinoAlias":"SAMPLE_TEXT", "destinoInfo":"SAMPLE_TEXT", "moneda":null, "monto":"0", "descripcion":"SAMPLE_TEXT", "estadoTransferencia":null, "timestamp":"2020-01-01T00:00:00.000Z", "descripcionEstado":"SAMPLE_TEXT", "identificacion":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "destinoCbu":"SAMPLE_TEXT", "destinoAlias":"SAMPLE_TEXT", "destinoInfo":"SAMPLE_TEXT", "moneda":null, "monto":"0", "descripcion":"SAMPLE_TEXT", "estadoTransferencia":null, "timestamp":"2020-01-01T00:00:00.000Z", "descripcionEstado":"SAMPLE_TEXT", "identificacion":"SAMPLE_TEXT", "tipoTransferencia":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_transferenciaApp_url"))).exitHereIfFailed
             .pause(10)

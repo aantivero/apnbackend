@@ -38,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.aantivero.paynow.domain.enumeration.Moneda;
 import com.aantivero.paynow.domain.enumeration.EstadoTransferencia;
+import com.aantivero.paynow.domain.enumeration.TipoTransferencia;
 /**
  * Test class for the TransferenciaAppResource REST controller.
  *
@@ -76,6 +77,9 @@ public class TransferenciaAppResourceIntTest {
 
     private static final String DEFAULT_IDENTIFICACION = "AAAAAAAAAA";
     private static final String UPDATED_IDENTIFICACION = "BBBBBBBBBB";
+
+    private static final TipoTransferencia DEFAULT_TIPO_TRANSFERENCIA = TipoTransferencia.DEBIN;
+    private static final TipoTransferencia UPDATED_TIPO_TRANSFERENCIA = TipoTransferencia.TRANSFERENCIA;
 
     @Autowired
     private TransferenciaAppRepository transferenciaAppRepository;
@@ -130,7 +134,8 @@ public class TransferenciaAppResourceIntTest {
             .estadoTransferencia(DEFAULT_ESTADO_TRANSFERENCIA)
             .timestamp(DEFAULT_TIMESTAMP)
             .descripcionEstado(DEFAULT_DESCRIPCION_ESTADO)
-            .identificacion(DEFAULT_IDENTIFICACION);
+            .identificacion(DEFAULT_IDENTIFICACION)
+            .tipoTransferencia(DEFAULT_TIPO_TRANSFERENCIA);
         // Add required entity
         CuentaApp origen = CuentaAppResourceIntTest.createEntity(em);
         em.persist(origen);
@@ -175,6 +180,7 @@ public class TransferenciaAppResourceIntTest {
         assertThat(testTransferenciaApp.getTimestamp()).isEqualTo(DEFAULT_TIMESTAMP);
         assertThat(testTransferenciaApp.getDescripcionEstado()).isEqualTo(DEFAULT_DESCRIPCION_ESTADO);
         assertThat(testTransferenciaApp.getIdentificacion()).isEqualTo(DEFAULT_IDENTIFICACION);
+        assertThat(testTransferenciaApp.getTipoTransferencia()).isEqualTo(DEFAULT_TIPO_TRANSFERENCIA);
 
         // Validate the TransferenciaApp in Elasticsearch
         TransferenciaApp transferenciaAppEs = transferenciaAppSearchRepository.findOne(testTransferenciaApp.getId());
@@ -274,6 +280,24 @@ public class TransferenciaAppResourceIntTest {
 
     @Test
     @Transactional
+    public void checkTipoTransferenciaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = transferenciaAppRepository.findAll().size();
+        // set the field null
+        transferenciaApp.setTipoTransferencia(null);
+
+        // Create the TransferenciaApp, which fails.
+
+        restTransferenciaAppMockMvc.perform(post("/api/transferencia-apps")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(transferenciaApp)))
+            .andExpect(status().isBadRequest());
+
+        List<TransferenciaApp> transferenciaAppList = transferenciaAppRepository.findAll();
+        assertThat(transferenciaAppList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllTransferenciaApps() throws Exception {
         // Initialize the database
         transferenciaAppRepository.saveAndFlush(transferenciaApp);
@@ -292,7 +316,8 @@ public class TransferenciaAppResourceIntTest {
             .andExpect(jsonPath("$.[*].estadoTransferencia").value(hasItem(DEFAULT_ESTADO_TRANSFERENCIA.toString())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())))
             .andExpect(jsonPath("$.[*].descripcionEstado").value(hasItem(DEFAULT_DESCRIPCION_ESTADO.toString())))
-            .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION.toString())));
+            .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION.toString())))
+            .andExpect(jsonPath("$.[*].tipoTransferencia").value(hasItem(DEFAULT_TIPO_TRANSFERENCIA.toString())));
     }
 
     @Test
@@ -315,7 +340,8 @@ public class TransferenciaAppResourceIntTest {
             .andExpect(jsonPath("$.estadoTransferencia").value(DEFAULT_ESTADO_TRANSFERENCIA.toString()))
             .andExpect(jsonPath("$.timestamp").value(DEFAULT_TIMESTAMP.toString()))
             .andExpect(jsonPath("$.descripcionEstado").value(DEFAULT_DESCRIPCION_ESTADO.toString()))
-            .andExpect(jsonPath("$.identificacion").value(DEFAULT_IDENTIFICACION.toString()));
+            .andExpect(jsonPath("$.identificacion").value(DEFAULT_IDENTIFICACION.toString()))
+            .andExpect(jsonPath("$.tipoTransferencia").value(DEFAULT_TIPO_TRANSFERENCIA.toString()));
     }
 
     @Test
@@ -348,7 +374,8 @@ public class TransferenciaAppResourceIntTest {
             .estadoTransferencia(UPDATED_ESTADO_TRANSFERENCIA)
             .timestamp(UPDATED_TIMESTAMP)
             .descripcionEstado(UPDATED_DESCRIPCION_ESTADO)
-            .identificacion(UPDATED_IDENTIFICACION);
+            .identificacion(UPDATED_IDENTIFICACION)
+            .tipoTransferencia(UPDATED_TIPO_TRANSFERENCIA);
 
         restTransferenciaAppMockMvc.perform(put("/api/transferencia-apps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -369,6 +396,7 @@ public class TransferenciaAppResourceIntTest {
         assertThat(testTransferenciaApp.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
         assertThat(testTransferenciaApp.getDescripcionEstado()).isEqualTo(UPDATED_DESCRIPCION_ESTADO);
         assertThat(testTransferenciaApp.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
+        assertThat(testTransferenciaApp.getTipoTransferencia()).isEqualTo(UPDATED_TIPO_TRANSFERENCIA);
 
         // Validate the TransferenciaApp in Elasticsearch
         TransferenciaApp transferenciaAppEs = transferenciaAppSearchRepository.findOne(testTransferenciaApp.getId());
@@ -435,7 +463,8 @@ public class TransferenciaAppResourceIntTest {
             .andExpect(jsonPath("$.[*].estadoTransferencia").value(hasItem(DEFAULT_ESTADO_TRANSFERENCIA.toString())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())))
             .andExpect(jsonPath("$.[*].descripcionEstado").value(hasItem(DEFAULT_DESCRIPCION_ESTADO.toString())))
-            .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION.toString())));
+            .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION.toString())))
+            .andExpect(jsonPath("$.[*].tipoTransferencia").value(hasItem(DEFAULT_TIPO_TRANSFERENCIA.toString())));
     }
 
     @Test

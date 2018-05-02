@@ -1,0 +1,9 @@
+{
+    "paynowApp": {
+        "TipoTransferencia" : {
+            "null": "",
+            "DEBIN": "DEBIN",
+            "TRANSFERENCIA": "TRANSFERENCIA"
+        }
+    }
+}

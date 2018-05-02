@@ -27,6 +27,7 @@
             "timestamp": "Timestamp",
             "descripcionEstado": "Descripcion Estado",
             "identificacion": "Identificacion",
+            "tipoTransferencia": "Tipo Transferencia",
             "origen": "Origen",
             "destinoBanco": "Destino Banco"
         }

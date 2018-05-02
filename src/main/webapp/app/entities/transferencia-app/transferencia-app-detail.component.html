@@ -44,6 +44,10 @@
         <dd>
             <span>{{transferenciaApp.identificacion}}</span>
         </dd>
+        <dt><span jhiTranslate="paynowApp.transferenciaApp.tipoTransferencia">Tipo Transferencia</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.TipoTransferencia.' + transferenciaApp.tipoTransferencia}}">{{transferenciaApp.tipoTransferencia}}</span>
+        </dd>
         <dt><span jhiTranslate="paynowApp.transferenciaApp.origen">Origen</span></dt>
         <dd>
             <div *ngIf="transferenciaApp.origen">

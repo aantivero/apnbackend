@@ -61,6 +61,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="tipo_transferencia" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="origen_id" type="bigint">
                 <constraints nullable="false" />
             </column>

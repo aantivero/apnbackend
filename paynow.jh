@@ -28,7 +28,8 @@ entity TransferenciaApp (transferencia_app) {
   estadoTransferencia EstadoTransferencia required,
   timestamp Instant required,
   descripcionEstado String,
-  identificacion String
+  identificacion String,
+  tipoTransferencia TipoTransferencia required
 }
 entity MovimientoApp (movimiento_app) {
   cuentaDebitoCbu String,
@@ -56,6 +57,11 @@ enum EstadoTransferencia {
    ACEPTADA,
    RECHAZADA,
    ERROR
+}
+
+enum TipoTransferencia {
+  DEBIN,
+   TRANSFERENCIA
 }
 
 relationship ManyToOne {

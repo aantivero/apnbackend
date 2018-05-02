@@ -47,6 +47,7 @@ public class MovimientoAppService {
      * @return the persisted entity
      */
     public MovimientoApp save(MovimientoApp movimientoApp) {
+        //TODO falta considerar si el movimiento ya no fue consolidado
         log.debug("Request guardar MovimientoApp : {}", movimientoApp);
         //buscar y actualizar la cuentaApp
         boolean consolidadoDebito = false;

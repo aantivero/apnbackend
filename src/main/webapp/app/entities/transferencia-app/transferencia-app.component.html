@@ -40,6 +40,7 @@
             <th jhiSortBy="timestamp"><span jhiTranslate="paynowApp.transferenciaApp.timestamp">Timestamp</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="descripcionEstado"><span jhiTranslate="paynowApp.transferenciaApp.descripcionEstado">Descripcion Estado</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="identificacion"><span jhiTranslate="paynowApp.transferenciaApp.identificacion">Identificacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tipoTransferencia"><span jhiTranslate="paynowApp.transferenciaApp.tipoTransferencia">Tipo Transferencia</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="origen.nombre"><span jhiTranslate="paynowApp.transferenciaApp.origen">Origen</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="destinoBanco.nombre"><span jhiTranslate="paynowApp.transferenciaApp.destinoBanco">Destino Banco</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -58,6 +59,7 @@
                 <td>{{transferenciaApp.timestamp | date:'medium'}}</td>
                 <td>{{transferenciaApp.descripcionEstado}}</td>
                 <td>{{transferenciaApp.identificacion}}</td>
+                <td jhiTranslate="{{'paynowApp.TipoTransferencia.' + transferenciaApp.tipoTransferencia}}">{{transferenciaApp.tipoTransferencia}}</td>
                 <td>
                     <div *ngIf="transferenciaApp.origen">
                         <a [routerLink]="['../cuenta-app', transferenciaApp.origen?.id ]" >{{transferenciaApp.origen?.nombre}}</a>

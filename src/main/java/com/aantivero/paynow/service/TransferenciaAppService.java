@@ -4,6 +4,7 @@ import com.aantivero.paynow.domain.CuentaApp;
 import com.aantivero.paynow.domain.MovimientoApp;
 import com.aantivero.paynow.domain.TransferenciaApp;
 import com.aantivero.paynow.domain.enumeration.EstadoTransferencia;
+import com.aantivero.paynow.domain.enumeration.TipoTransferencia;
 import com.aantivero.paynow.repository.TransferenciaAppRepository;
 import com.aantivero.paynow.repository.search.TransferenciaAppSearchRepository;
 import org.slf4j.Logger;
@@ -77,27 +78,65 @@ public class TransferenciaAppService {
         }*/
         //si la transferencia es 'aceptada'se genera un movimiento app
         if (transferenciaApp.getEstadoTransferencia().equals(EstadoTransferencia.ACEPTADA)){
-            log.debug("Crear el movimiento ");
-            MovimientoApp movimientoApp = new MovimientoApp();
-            movimientoApp.setCuentaDebitoAlias(transferenciaApp.getOrigen().getAliasCbu());
-            movimientoApp.setCuentaDebitoCbu(transferenciaApp.getOrigen().getCbu());
-            movimientoApp.setCuentaDebitoPropia(true);
-            movimientoApp.setBancoDebito(transferenciaApp.getOrigen().getBanco());
-            movimientoApp.setCuentaCreditoAlias(transferenciaApp.getDestinoAlias());
-            movimientoApp.setCuentaCreditoCbu(transferenciaApp.getDestinoCbu());
-            movimientoApp.setCuentaCreditoPropia(false);
-            movimientoApp.setBancoCredito(transferenciaApp.getDestinoBanco());
-            movimientoApp.setMoneda(transferenciaApp.getMoneda());
-            movimientoApp.setMonto(transferenciaApp.getMonto());
-            movimientoApp.setDescripcion(transferenciaApp.getDescripcion());
-            movimientoApp.setConsolidado(false);
-            movimientoApp.setTimestamp(Instant.now());
-            MovimientoApp result = movimientoAppService.save(movimientoApp);
-            log.debug("Movimiento creado:" + result);
+            log.debug("Crear el movimiento dependiendo del tipo de transferencia");
+            MovimientoApp movimientoApp = null;
+            if (transferenciaApp.getTipoTransferencia().equals(TipoTransferencia.DEBIN)) {
+                movimientoApp = crearMovimientoDebin(transferenciaApp);
+            } else if(transferenciaApp.getTipoTransferencia().equals(TipoTransferencia.TRANSFERENCIA)) {
+                movimientoApp = crearMovimientoTransferencia(transferenciaApp);
+            }
+            if(movimientoApp!=null){
+                MovimientoApp result = movimientoAppService.save(movimientoApp);
+                log.debug("Movimiento creado:"+result);
+            }
         }
         TransferenciaApp result = transferenciaAppRepository.save(transferenciaApp);
         transferenciaAppSearchRepository.save(result);
         return result;
+    }
+
+    private MovimientoApp crearMovimientoDebin(TransferenciaApp transferenciaApp) {
+        MovimientoApp movimientoApp = new MovimientoApp();
+        //credito
+        movimientoApp.setCuentaCreditoAlias(transferenciaApp.getOrigen().getAliasCbu());
+        movimientoApp.setCuentaCreditoCbu(transferenciaApp.getOrigen().getCbu());
+        movimientoApp.setCuentaCreditoPropia(true);
+        movimientoApp.setBancoCredito(transferenciaApp.getOrigen().getBanco());
+        //debito
+        movimientoApp.setCuentaDebitoAlias(transferenciaApp.getDestinoAlias());
+        movimientoApp.setCuentaDebitoCbu(transferenciaApp.getDestinoCbu());
+        movimientoApp.setCuentaDebitoPropia(false);
+        movimientoApp.setBancoDebito(transferenciaApp.getDestinoBanco());
+        //
+        movimientoApp.setMoneda(transferenciaApp.getMoneda());
+        movimientoApp.setMonto(transferenciaApp.getMonto());
+        movimientoApp.setDescripcion(transferenciaApp.getDescripcion());
+        movimientoApp.setConsolidado(false);
+        movimientoApp.setTimestamp(Instant.now());
+        movimientoApp.setIdentificacion(transferenciaApp.getIdentificacion());
+        return movimientoApp;
+    }
+
+    private MovimientoApp crearMovimientoTransferencia(TransferenciaApp transferenciaApp) {
+        MovimientoApp movimientoApp = new MovimientoApp();
+        //debito
+        movimientoApp.setCuentaDebitoAlias(transferenciaApp.getOrigen().getAliasCbu());
+        movimientoApp.setCuentaDebitoCbu(transferenciaApp.getOrigen().getCbu());
+        movimientoApp.setCuentaDebitoPropia(true);
+        movimientoApp.setBancoDebito(transferenciaApp.getOrigen().getBanco());
+        //credito
+        movimientoApp.setCuentaCreditoAlias(transferenciaApp.getDestinoAlias());
+        movimientoApp.setCuentaCreditoCbu(transferenciaApp.getDestinoCbu());
+        movimientoApp.setCuentaCreditoPropia(false);
+        movimientoApp.setBancoCredito(transferenciaApp.getDestinoBanco());
+        //
+        movimientoApp.setMoneda(transferenciaApp.getMoneda());
+        movimientoApp.setMonto(transferenciaApp.getMonto());
+        movimientoApp.setDescripcion(transferenciaApp.getDescripcion());
+        movimientoApp.setConsolidado(false);
+        movimientoApp.setTimestamp(Instant.now());
+        movimientoApp.setIdentificacion(transferenciaApp.getIdentificacion());
+        return movimientoApp;
     }
 
     /**

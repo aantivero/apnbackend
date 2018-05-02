@@ -51,6 +51,7 @@ describe('TransferenciaApp e2e test', () => {
         expect(transferenciaAppDialogPage.getDescripcionEstadoInput()).toMatch('descripcionEstado');
         transferenciaAppDialogPage.setIdentificacionInput('identificacion');
         expect(transferenciaAppDialogPage.getIdentificacionInput()).toMatch('identificacion');
+        transferenciaAppDialogPage.tipoTransferenciaSelectLastOption();
         transferenciaAppDialogPage.origenSelectLastOption();
         transferenciaAppDialogPage.destinoBancoSelectLastOption();
         transferenciaAppDialogPage.save();
@@ -89,6 +90,7 @@ export class TransferenciaAppDialogPage {
     timestampInput = element(by.css('input#field_timestamp'));
     descripcionEstadoInput = element(by.css('input#field_descripcionEstado'));
     identificacionInput = element(by.css('input#field_identificacion'));
+    tipoTransferenciaSelect = element(by.css('select#field_tipoTransferencia'));
     origenSelect = element(by.css('select#field_origen'));
     destinoBancoSelect = element(by.css('select#field_destinoBanco'));
 
@@ -182,6 +184,17 @@ export class TransferenciaAppDialogPage {
         return this.identificacionInput.getAttribute('value');
     };
 
+    setTipoTransferenciaSelect = function(tipoTransferencia) {
+        this.tipoTransferenciaSelect.sendKeys(tipoTransferencia);
+    };
+
+    getTipoTransferenciaSelect = function() {
+        return this.tipoTransferenciaSelect.element(by.css('option:checked')).getText();
+    };
+
+    tipoTransferenciaSelectLastOption = function() {
+        this.tipoTransferenciaSelect.all(by.tagName('option')).last().click();
+    };
     origenSelectLastOption = function() {
         this.origenSelect.all(by.tagName('option')).last().click();
     };

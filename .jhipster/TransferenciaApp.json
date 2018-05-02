@@ -74,6 +74,14 @@
         {
             "fieldName": "identificacion",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "tipoTransferencia",
+            "fieldType": "TipoTransferencia",
+            "fieldValues": "DEBIN, TRANSFERENCIA",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20180501032904",

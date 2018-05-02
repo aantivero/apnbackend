@@ -102,6 +102,19 @@
             <input type="text" class="form-control" name="identificacion" id="field_identificacion"
                 [(ngModel)]="transferenciaApp.identificacion" />
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.tipoTransferencia" for="field_tipoTransferencia">Tipo Transferencia</label>
+            <select class="form-control" name="tipoTransferencia" [(ngModel)]="transferenciaApp.tipoTransferencia" id="field_tipoTransferencia"  required>
+                <option value="DEBIN">{{'paynowApp.TipoTransferencia.DEBIN' | translate}}</option>
+                <option value="TRANSFERENCIA">{{'paynowApp.TipoTransferencia.TRANSFERENCIA' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.tipoTransferencia?.dirty && editForm.controls.tipoTransferencia?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.tipoTransferencia?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="paynowApp.transferenciaApp.origen" for="field_origen">Origen</label>
