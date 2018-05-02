@@ -58,6 +58,9 @@ public class TransferenciaAppResource {
             throw new BadRequestAlertException("A new transferenciaApp cannot already have an ID", ENTITY_NAME, "idexists");
         }
         TransferenciaApp result = transferenciaAppService.save(transferenciaApp);
+        if (result == null){
+            throw new BadRequestAlertException("No se pudo crear la transferencia", ENTITY_NAME, "crearTransferencia");
+        }
         return ResponseEntity.created(new URI("/api/transferencia-apps/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -80,6 +83,9 @@ public class TransferenciaAppResource {
             return createTransferenciaApp(transferenciaApp);
         }
         TransferenciaApp result = transferenciaAppService.save(transferenciaApp);
+        if (result == null){
+            throw new BadRequestAlertException("No se pudo modificar la transferencia", ENTITY_NAME, "modificarTransferencia");
+        }
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, transferenciaApp.getId().toString()))
             .body(result);

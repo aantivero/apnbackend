@@ -40,7 +40,7 @@
             <tr *ngFor="let saldoApp of saldoApps ;trackBy: trackId">
                 <td><a [routerLink]="['../saldo-app', saldoApp.id ]">{{saldoApp.id}}</a></td>
                 <td jhiTranslate="{{'paynowApp.Moneda.' + saldoApp.moneda}}">{{saldoApp.moneda}}</td>
-                <td>{{saldoApp.monto}}</td>
+                <td>{{saldoApp.monto | currency}}</td>
                 <td>
                     <div *ngIf="saldoApp.app">
                         <a [routerLink]="['../app', saldoApp.app?.id ]" >{{saldoApp.app?.nombre}}</a>

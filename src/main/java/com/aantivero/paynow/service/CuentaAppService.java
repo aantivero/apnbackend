@@ -105,6 +105,36 @@ public class CuentaAppService {
         }
     }
 
+    public CuentaApp update(CuentaApp cuentaApp, BigDecimal nuevoSaldo) {
+        log.debug("Modificacion de Saldo de la cuenta.");
+        CuentaApp anterior = cuentaAppRepository.findOne(cuentaApp.getId());
+        log.debug("Anterior: " + anterior.toString());
+        log.debug("Actual: " + cuentaApp.toString());
+        log.debug("Nuevo saldo: " + nuevoSaldo);
+        //primero chequear que son de la misma moneda
+        if (anterior.getMoneda().compareTo(cuentaApp.getMoneda()) == 0) {
+            //cambio del saldo de la aplicacion
+            if (anterior.getSaldo().compareTo(nuevoSaldo) > 0) {
+                BigDecimal ajuste = anterior.getSaldo().subtract(nuevoSaldo);
+                log.debug("Ajuste: " + ajuste);
+                actualizarSaldoApp(cuentaApp.getApp(), cuentaApp.getMoneda(), ajuste, false);
+            } else if (anterior.getSaldo().compareTo(nuevoSaldo) < 0){
+                BigDecimal ajuste = nuevoSaldo.subtract(anterior.getSaldo());
+                actualizarSaldoApp(cuentaApp.getApp(), cuentaApp.getMoneda(), ajuste, true);
+            }
+            //cambio saldo de la cuenta
+            cuentaApp.setSaldo(nuevoSaldo);
+            CuentaApp result = cuentaAppRepository.save(cuentaApp);
+            cuentaAppSearchRepository.save(result);
+            return result;
+        } else {
+            //hay que realizar una conversión de monedas
+            //TODO llamada al servicio de conversión de monedas y realizar un manejo adecuado de las excepciones
+            log.error("No es posible cambiar de MONEDA la cuenta");
+            return null;
+        }
+    }
+
     /**
      * Get all the cuentaApps.
      *
@@ -127,6 +157,13 @@ public class CuentaAppService {
     public CuentaApp findOne(Long id) {
         log.debug("Request to get CuentaApp : {}", id);
         return cuentaAppRepository.findOne(id);
+    }
+
+    @Transactional(readOnly = true)
+    public CuentaApp findByAliasCbuOrCbu(String aliasCbu, String cbu){
+        log.debug("Buscar por aliascbu:" +  aliasCbu + " o cbu:"+cbu);
+        return cuentaAppRepository.findCuentaAppByAliasCbuOrCbu(aliasCbu, cbu);
+        //return cuentaAppSearchRepository.findCuentaAppByAliasCbuOrCbu(aliasCbu, cbu);
     }
 
     /**

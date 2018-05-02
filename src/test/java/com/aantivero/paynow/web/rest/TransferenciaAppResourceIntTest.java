@@ -57,10 +57,10 @@ public class TransferenciaAppResourceIntTest {
     private static final String UPDATED_DESTINO_INFO = "BBBBBBBBBB";
 
     private static final Moneda DEFAULT_MONEDA = Moneda.PESOS;
-    private static final Moneda UPDATED_MONEDA = Moneda.DOLAR;
+    private static final Moneda UPDATED_MONEDA = Moneda.PESOS;
 
-    private static final BigDecimal DEFAULT_MONTO = new BigDecimal(1);
-    private static final BigDecimal UPDATED_MONTO = new BigDecimal(2);
+    private static final BigDecimal DEFAULT_MONTO = new BigDecimal(2);
+    private static final BigDecimal UPDATED_MONTO = new BigDecimal(1);
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";

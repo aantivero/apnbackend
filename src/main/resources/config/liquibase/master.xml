@@ -10,9 +10,11 @@
     <include file="config/liquibase/changelog/20180422194404_added_entity_Banco.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180422195333_added_entity_CuentaApp.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180501032904_added_entity_TransferenciaApp.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180501153134_added_entity_MovimientoApp.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180422193150_added_entity_constraints_SaldoApp.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180422195333_added_entity_constraints_CuentaApp.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180501032904_added_entity_constraints_TransferenciaApp.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180501153134_added_entity_constraints_MovimientoApp.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

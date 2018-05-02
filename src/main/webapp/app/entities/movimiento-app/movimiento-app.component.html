@@ -1,0 +1,115 @@
+<div>
+    <h2>
+        <span jhiTranslate="paynowApp.movimientoApp.home.title">Movimiento Apps</span>
+        <button class="btn btn-primary float-right jh-create-entity create-movimiento-app" [routerLink]="['/', { outlets: { popup: ['movimiento-app-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="paynowApp.movimientoApp.home.createLabel">
+            Create new Movimiento App
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'paynowApp.movimientoApp.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="movimientoApps">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaDebitoCbu"><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoCbu">Cuenta Debito Cbu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaDebitoAlias"><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoAlias">Cuenta Debito Alias</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaDebitoPropia"><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoPropia">Cuenta Debito Propia</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaCreditoCbu"><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoCbu">Cuenta Credito Cbu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaCreditoAlias"><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoAlias">Cuenta Credito Alias</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cuentaCreditoPropia"><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoPropia">Cuenta Credito Propia</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="moneda"><span jhiTranslate="paynowApp.movimientoApp.moneda">Moneda</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="monto"><span jhiTranslate="paynowApp.movimientoApp.monto">Monto</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="timestamp"><span jhiTranslate="paynowApp.movimientoApp.timestamp">Timestamp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="descripcion"><span jhiTranslate="paynowApp.movimientoApp.descripcion">Descripcion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="identificacion"><span jhiTranslate="paynowApp.movimientoApp.identificacion">Identificacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="consolidado"><span jhiTranslate="paynowApp.movimientoApp.consolidado">Consolidado</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="consolidadoTimestamp"><span jhiTranslate="paynowApp.movimientoApp.consolidadoTimestamp">Consolidado Timestamp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bancoDebito.nombre"><span jhiTranslate="paynowApp.movimientoApp.bancoDebito">Banco Debito</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bancoCredito.nombre"><span jhiTranslate="paynowApp.movimientoApp.bancoCredito">Banco Credito</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let movimientoApp of movimientoApps ;trackBy: trackId">
+                <td><a [routerLink]="['../movimiento-app', movimientoApp.id ]">{{movimientoApp.id}}</a></td>
+                <td>{{movimientoApp.cuentaDebitoCbu}}</td>
+                <td>{{movimientoApp.cuentaDebitoAlias}}</td>
+                <td>{{movimientoApp.cuentaDebitoPropia}}</td>
+                <td>{{movimientoApp.cuentaCreditoCbu}}</td>
+                <td>{{movimientoApp.cuentaCreditoAlias}}</td>
+                <td>{{movimientoApp.cuentaCreditoPropia}}</td>
+                <td jhiTranslate="{{'paynowApp.Moneda.' + movimientoApp.moneda}}">{{movimientoApp.moneda}}</td>
+                <td>{{movimientoApp.monto}}</td>
+                <td>{{movimientoApp.timestamp | date:'medium'}}</td>
+                <td>{{movimientoApp.descripcion}}</td>
+                <td>{{movimientoApp.identificacion}}</td>
+                <td>{{movimientoApp.consolidado}}</td>
+                <td>{{movimientoApp.consolidadoTimestamp | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="movimientoApp.bancoDebito">
+                        <a [routerLink]="['../banco', movimientoApp.bancoDebito?.id ]" >{{movimientoApp.bancoDebito?.nombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="movimientoApp.bancoCredito">
+                        <a [routerLink]="['../banco', movimientoApp.bancoCredito?.id ]" >{{movimientoApp.bancoCredito?.nombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../movimiento-app', movimientoApp.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'movimiento-app/'+ movimientoApp.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'movimiento-app/'+ movimientoApp.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="movimientoApps && movimientoApps.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

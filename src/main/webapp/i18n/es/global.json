@@ -12,6 +12,7 @@
                 "banco": "Banco",
                 "cuentaApp": "Cuenta App",
                 "transferenciaApp": "Transferencia App",
+                "movimientoApp": "Movimiento App",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -131,7 +132,9 @@
         "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
-        "idexists": "A new {{entityName}} cannot already have an ID"
+        "idexists": "A new {{entityName}} cannot already have an ID",
+        "crearTransferencia": "No se pudo crear la transferencia",
+        "modificarTransferencia": "No se pudo modificar la transferencia"
     },
     "footer": "pie de página"
 }

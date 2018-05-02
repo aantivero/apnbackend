@@ -1,6 +1,9 @@
 package com.aantivero.paynow.service;
 
+import com.aantivero.paynow.domain.CuentaApp;
+import com.aantivero.paynow.domain.MovimientoApp;
 import com.aantivero.paynow.domain.TransferenciaApp;
+import com.aantivero.paynow.domain.enumeration.EstadoTransferencia;
 import com.aantivero.paynow.repository.TransferenciaAppRepository;
 import com.aantivero.paynow.repository.search.TransferenciaAppSearchRepository;
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.time.Instant;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -26,9 +31,18 @@ public class TransferenciaAppService {
 
     private final TransferenciaAppSearchRepository transferenciaAppSearchRepository;
 
-    public TransferenciaAppService(TransferenciaAppRepository transferenciaAppRepository, TransferenciaAppSearchRepository transferenciaAppSearchRepository) {
+    private final CuentaAppService cuentaAppService;
+
+    private final MovimientoAppService movimientoAppService;
+
+    public TransferenciaAppService(TransferenciaAppRepository transferenciaAppRepository,
+                                   TransferenciaAppSearchRepository transferenciaAppSearchRepository,
+                                   CuentaAppService cuentaAppService,
+                                   MovimientoAppService movimientoAppService) {
         this.transferenciaAppRepository = transferenciaAppRepository;
         this.transferenciaAppSearchRepository = transferenciaAppSearchRepository;
+        this.cuentaAppService = cuentaAppService;
+        this.movimientoAppService = movimientoAppService;
     }
 
     /**
@@ -39,6 +53,48 @@ public class TransferenciaAppService {
      */
     public TransferenciaApp save(TransferenciaApp transferenciaApp) {
         log.debug("Request to save TransferenciaApp : {}", transferenciaApp);
+        //verficar que la cuenta de origen tiene saldo
+        CuentaApp cuentaApp = cuentaAppService.findOne(transferenciaApp.getOrigen().getId());
+        if(cuentaApp.getSaldo().compareTo(transferenciaApp.getMonto()) < 0) {
+            //TODO falta manejo de excepciones del tipo de negocio
+            log.error("La cuenta " + cuentaApp + " no tiene saldo suficiente: " + transferenciaApp.getMonto());
+            return null;
+        }
+        //verificar que la moneda es la misma que en la cuenta
+        if(!cuentaApp.getMoneda().equals(transferenciaApp.getMoneda())){
+            log.error("La moneda de la cuenta no es la misma que la transferencia");
+            return null;
+        }
+        //verificar que existe cbu o alias destino
+        if(transferenciaApp.getDestinoAlias() == null && transferenciaApp.getDestinoCbu() == null){
+            //TODO crear una forma mas adecuada de comprobar que tiene alias o cbu por el momento solo no nulo
+            log.error("No tiene definido ni alias ni cbu destino");
+            return null;
+        }
+        /*if(transferenciaApp.getDestinoAlias().isEmpty() && transferenciaApp.getDestinoCbu().isEmpty()){
+            log.error("No tiene definido ni alias ni cbu destino");
+            return null;
+        }*/
+        //si la transferencia es 'aceptada'se genera un movimiento app
+        if (transferenciaApp.getEstadoTransferencia().equals(EstadoTransferencia.ACEPTADA)){
+            log.debug("Crear el movimiento ");
+            MovimientoApp movimientoApp = new MovimientoApp();
+            movimientoApp.setCuentaDebitoAlias(transferenciaApp.getOrigen().getAliasCbu());
+            movimientoApp.setCuentaDebitoCbu(transferenciaApp.getOrigen().getCbu());
+            movimientoApp.setCuentaDebitoPropia(true);
+            movimientoApp.setBancoDebito(transferenciaApp.getOrigen().getBanco());
+            movimientoApp.setCuentaCreditoAlias(transferenciaApp.getDestinoAlias());
+            movimientoApp.setCuentaCreditoCbu(transferenciaApp.getDestinoCbu());
+            movimientoApp.setCuentaCreditoPropia(false);
+            movimientoApp.setBancoCredito(transferenciaApp.getDestinoBanco());
+            movimientoApp.setMoneda(transferenciaApp.getMoneda());
+            movimientoApp.setMonto(transferenciaApp.getMonto());
+            movimientoApp.setDescripcion(transferenciaApp.getDescripcion());
+            movimientoApp.setConsolidado(false);
+            movimientoApp.setTimestamp(Instant.now());
+            MovimientoApp result = movimientoAppService.save(movimientoApp);
+            log.debug("Movimiento creado:" + result);
+        }
         TransferenciaApp result = transferenciaAppRepository.save(transferenciaApp);
         transferenciaAppSearchRepository.save(result);
         return result;

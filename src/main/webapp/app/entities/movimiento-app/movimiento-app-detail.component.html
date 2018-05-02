@@ -1,0 +1,86 @@
+
+<div *ngIf="movimientoApp">
+    <h2><span jhiTranslate="paynowApp.movimientoApp.detail.title">Movimiento App</span> {{movimientoApp.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoCbu">Cuenta Debito Cbu</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaDebitoCbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoAlias">Cuenta Debito Alias</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaDebitoAlias}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaDebitoPropia">Cuenta Debito Propia</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaDebitoPropia}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoCbu">Cuenta Credito Cbu</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaCreditoCbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoAlias">Cuenta Credito Alias</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaCreditoAlias}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.cuentaCreditoPropia">Cuenta Credito Propia</span></dt>
+        <dd>
+            <span>{{movimientoApp.cuentaCreditoPropia}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + movimientoApp.moneda}}">{{movimientoApp.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.monto">Monto</span></dt>
+        <dd>
+            <span>{{movimientoApp.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.timestamp">Timestamp</span></dt>
+        <dd>
+            <span>{{movimientoApp.timestamp | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{movimientoApp.descripcion}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.identificacion">Identificacion</span></dt>
+        <dd>
+            <span>{{movimientoApp.identificacion}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.consolidado">Consolidado</span></dt>
+        <dd>
+            <span>{{movimientoApp.consolidado}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.consolidadoTimestamp">Consolidado Timestamp</span></dt>
+        <dd>
+            <span>{{movimientoApp.consolidadoTimestamp | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.bancoDebito">Banco Debito</span></dt>
+        <dd>
+            <div *ngIf="movimientoApp.bancoDebito">
+                <a [routerLink]="['/banco', movimientoApp.bancoDebito?.id]">{{movimientoApp.bancoDebito?.nombre}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.movimientoApp.bancoCredito">Banco Credito</span></dt>
+        <dd>
+            <div *ngIf="movimientoApp.bancoCredito">
+                <a [routerLink]="['/banco', movimientoApp.bancoCredito?.id]">{{movimientoApp.bancoCredito?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'movimiento-app/'+ movimientoApp.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -56,8 +56,8 @@ public class CuentaAppResourceIntTest {
     private static final Moneda DEFAULT_MONEDA = Moneda.PESOS;
     private static final Moneda UPDATED_MONEDA = Moneda.PESOS;
 
-    private static final BigDecimal DEFAULT_SALDO = new BigDecimal(1);
-    private static final BigDecimal UPDATED_SALDO = new BigDecimal(2);
+    private static final BigDecimal DEFAULT_SALDO = new BigDecimal(2);
+    private static final BigDecimal UPDATED_SALDO = new BigDecimal(1);
 
     @Autowired
     private CuentaAppRepository cuentaAppRepository;

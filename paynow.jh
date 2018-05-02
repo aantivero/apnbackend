@@ -18,18 +18,56 @@ entity CuentaApp (cuenta_app) {
   moneda Moneda required,
   saldo BigDecimal required
 }
+entity TransferenciaApp (transferencia_app) {
+  destinoCbu String,
+  destinoAlias String,
+  destinoInfo String,
+  moneda Moneda required,
+  monto BigDecimal required,
+  descripcion String,
+  estadoTransferencia EstadoTransferencia required,
+  timestamp Instant required,
+  descripcionEstado String,
+  identificacion String
+}
+entity MovimientoApp (movimiento_app) {
+  cuentaDebitoCbu String,
+  cuentaDebitoAlias String,
+  cuentaDebitoPropia Boolean required,
+  cuentaCreditoCbu String,
+  cuentaCreditoAlias String,
+  cuentaCreditoPropia Boolean required,
+  moneda Moneda required,
+  monto BigDecimal required min(0),
+  timestamp Instant required,
+  descripcion String,
+  identificacion String,
+  consolidado Boolean required,
+  consolidadoTimestamp Instant
+}
 
 enum Moneda {
   PESOS,
    DOLAR
 }
 
+enum EstadoTransferencia {
+  ENVIADA,
+   ACEPTADA,
+   RECHAZADA,
+   ERROR
+}
+
 relationship ManyToOne {
   SaldoApp{app(nombre) required} to App,
   CuentaApp{banco(nombre) required} to Banco,
-  CuentaApp{app(nombre) required} to App
+  CuentaApp{app(nombre) required} to App,
+  TransferenciaApp{origen(nombre) required} to CuentaApp,
+  TransferenciaApp{destinoBanco(nombre) required} to Banco,
+  MovimientoApp{bancoDebito(nombre) required} to Banco,
+  MovimientoApp{bancoCredito(nombre) required} to Banco
 }
 
-paginate App, SaldoApp, Banco, CuentaApp with pagination
-service App, SaldoApp, Banco, CuentaApp with serviceClass
-filter App
+paginate App, SaldoApp, Banco, CuentaApp, TransferenciaApp, MovimientoApp with pagination
+service App, SaldoApp, Banco, CuentaApp, TransferenciaApp, MovimientoApp with serviceClass
+filter App, MovimientoApp

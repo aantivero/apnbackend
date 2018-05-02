@@ -1,0 +1,104 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "bancoDebito",
+            "otherEntityName": "banco",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "bancoCredito",
+            "otherEntityName": "banco",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "cuentaDebitoCbu",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuentaDebitoAlias",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuentaDebitoPropia",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cuentaCreditoCbu",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuentaCreditoAlias",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuentaCreditoPropia",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "moneda",
+            "fieldType": "Moneda",
+            "fieldValues": "PESOS, DOLAR",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "monto",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "timestamp",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "identificacion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "consolidado",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "consolidadoTimestamp",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180501153134",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "movimiento_app",
+    "jpaMetamodelFiltering": true,
+    "pagination": "pagination"
+}

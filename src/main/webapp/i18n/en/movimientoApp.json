@@ -1,0 +1,37 @@
+
+{
+    "paynowApp": {
+        "movimientoApp" : {
+            "home": {
+                "title": "Movimiento Apps",
+                "createLabel": "Create a new Movimiento App",
+                "createOrEditLabel": "Create or edit a Movimiento App",
+                "search": "Search for Movimiento App"
+            },
+            "created": "A new Movimiento App is created with identifier {{ param }}",
+            "updated": "A Movimiento App is updated with identifier {{ param }}",
+            "deleted": "A Movimiento App is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Movimiento App {{ id }}?"
+            },
+            "detail": {
+                "title": "Movimiento App"
+            },
+            "cuentaDebitoCbu": "Cuenta Debito Cbu",
+            "cuentaDebitoAlias": "Cuenta Debito Alias",
+            "cuentaDebitoPropia": "Cuenta Debito Propia",
+            "cuentaCreditoCbu": "Cuenta Credito Cbu",
+            "cuentaCreditoAlias": "Cuenta Credito Alias",
+            "cuentaCreditoPropia": "Cuenta Credito Propia",
+            "moneda": "Moneda",
+            "monto": "Monto",
+            "timestamp": "Timestamp",
+            "descripcion": "Descripcion",
+            "identificacion": "Identificacion",
+            "consolidado": "Consolidado",
+            "consolidadoTimestamp": "Consolidado Timestamp",
+            "bancoDebito": "Banco Debito",
+            "bancoCredito": "Banco Credito"
+        }
+    }
+}

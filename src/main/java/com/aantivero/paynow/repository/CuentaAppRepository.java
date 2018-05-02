@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface CuentaAppRepository extends JpaRepository<CuentaApp, Long> {
 
+    CuentaApp findCuentaAppByAliasCbuOrCbu(String aliasCbu, String cbu);
 }
