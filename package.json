@@ -17,6 +17,7 @@
     "@angular/router": "5.2.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0",
     "bootstrap": "4.0.0",
+    "bootswatch": "^4.1.1",
     "core-js": "2.4.1",
     "font-awesome": "4.7.0",
     "jquery": "3.2.1",
@@ -26,10 +27,10 @@
     "ngx-webstorage": "2.0.1",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.5.6",
-    "swagger-ui": "2.2.10",
     "sockjs-client": "1.1.4",
-    "webstomp-client": "1.0.6",
+    "swagger-ui": "2.2.10",
     "tether": "1.4.0",
+    "webstomp-client": "1.0.6",
     "zone.js": "0.8.19"
   },
   "devDependencies": {
@@ -79,16 +80,16 @@
     "tslint": "5.5.0",
     "tslint-loader": "3.5.3",
     "typescript": "2.6.2",
-    "xml2js": "0.4.17",
     "uglifyjs-webpack-plugin": "1.1.5",
+    "web-app-manifest-loader": "0.1.1",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.9.5",
     "webpack-merge": "4.1.1",
     "webpack-notifier": "1.5.1",
     "webpack-visualizer-plugin": "0.1.11",
-    "web-app-manifest-loader": "0.1.1",
     "workbox-webpack-plugin": "3.0.0-beta.1",
-    "write-file-webpack-plugin": "4.1.0"
+    "write-file-webpack-plugin": "4.1.0",
+    "xml2js": "0.4.17"
   },
   "engines": {
     "node": ">=6.9.0"
