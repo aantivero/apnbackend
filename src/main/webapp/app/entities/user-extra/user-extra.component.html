@@ -1,0 +1,91 @@
+<div>
+    <h2>
+        <span jhiTranslate="paynowApp.userExtra.home.title">User Extras</span>
+        <button class="btn btn-primary float-right jh-create-entity create-user-extra" [routerLink]="['/', { outlets: { popup: ['user-extra-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="paynowApp.userExtra.home.createLabel">
+            Create new User Extra
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'paynowApp.userExtra.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="userExtras">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="telefono"><span jhiTranslate="paynowApp.userExtra.telefono">Telefono</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="vendedor"><span jhiTranslate="paynowApp.userExtra.vendedor">Vendedor</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tipoDocumento"><span jhiTranslate="paynowApp.userExtra.tipoDocumento">Tipo Documento</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="numeroDocumento"><span jhiTranslate="paynowApp.userExtra.numeroDocumento">Numero Documento</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tipoContribuyente"><span jhiTranslate="paynowApp.userExtra.tipoContribuyente">Tipo Contribuyente</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuario.login"><span jhiTranslate="paynowApp.userExtra.usuario">Usuario</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let userExtra of userExtras ;trackBy: trackId">
+                <td><a [routerLink]="['../user-extra', userExtra.id ]">{{userExtra.id}}</a></td>
+                <td>{{userExtra.telefono}}</td>
+                <td>{{userExtra.vendedor}}</td>
+                <td jhiTranslate="{{'paynowApp.TipoDocumento.' + userExtra.tipoDocumento}}">{{userExtra.tipoDocumento}}</td>
+                <td>{{userExtra.numeroDocumento}}</td>
+                <td jhiTranslate="{{'paynowApp.TipoContribuyente.' + userExtra.tipoContribuyente}}">{{userExtra.tipoContribuyente}}</td>
+                <td>
+                    {{userExtra.usuario?.login}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../user-extra', userExtra.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'user-extra/'+ userExtra.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'user-extra/'+ userExtra.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="userExtras && userExtras.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

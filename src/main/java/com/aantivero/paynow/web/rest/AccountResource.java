@@ -1,5 +1,6 @@
 package com.aantivero.paynow.web.rest;
 
+import com.aantivero.paynow.service.UserExtraService;
 import com.codahale.metrics.annotation.Timed;
 
 import com.aantivero.paynow.domain.User;

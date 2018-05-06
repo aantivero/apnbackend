@@ -13,6 +13,7 @@
                 "cuentaApp": "Cuenta App",
                 "transferenciaApp": "Transferencia App",
                 "movimientoApp": "Movimiento App",
+                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -47,7 +48,9 @@
             "confirmpassword": "Confirmación de la nueva contraseña",
             "confirmpassword.placeholder": "Confirmación de la nueva contraseña",
             "email": "Correo electrónico",
-            "email.placeholder": "Su correo electrónico"
+            "email.placeholder": "Su correo electrónico",
+            "telefono": "Teléfono",
+            "telefono.placeholder": "Su número de teléfono"
         },
         "messages": {
             "info": {
@@ -81,6 +84,10 @@
                     "invalid": "Su correo electrónico no es válido.",
                     "minlength": "Se requiere que su correo electrónico tenga por lo menos 5 caracteres",
                     "maxlength": "Su correo electrónico no puede tener más de 50 caracteres"
+                },
+                "telefono": {
+                    "required": "Se requiere un teléfono celular.",
+                    "invalid": "El número de teléfono no es válido"
                 }
             }
         },

@@ -1,0 +1,46 @@
+
+<div *ngIf="userExtra">
+    <h2><span jhiTranslate="paynowApp.userExtra.detail.title">User Extra</span> {{userExtra.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.userExtra.telefono">Telefono</span></dt>
+        <dd>
+            <span>{{userExtra.telefono}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.userExtra.vendedor">Vendedor</span></dt>
+        <dd>
+            <span>{{userExtra.vendedor}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.userExtra.tipoDocumento">Tipo Documento</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.TipoDocumento.' + userExtra.tipoDocumento}}">{{userExtra.tipoDocumento}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.userExtra.numeroDocumento">Numero Documento</span></dt>
+        <dd>
+            <span>{{userExtra.numeroDocumento}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.userExtra.tipoContribuyente">Tipo Contribuyente</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.TipoContribuyente.' + userExtra.tipoContribuyente}}">{{userExtra.tipoContribuyente}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.userExtra.usuario">Usuario</span></dt>
+        <dd>
+            {{userExtra.usuario?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'user-extra/'+ userExtra.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

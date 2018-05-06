@@ -1,0 +1,73 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myUserExtraLabel" jhiTranslate="paynowApp.userExtra.home.createOrEditLabel">Create or edit a User Extra</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!userExtra.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="userExtra.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.telefono" for="field_telefono">Telefono</label>
+            <input type="text" class="form-control" name="telefono" id="field_telefono"
+                [(ngModel)]="userExtra.telefono" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.vendedor" for="field_vendedor">Vendedor</label>
+            <input type="checkbox" class="form-control" name="vendedor" id="field_vendedor"
+                [(ngModel)]="userExtra.vendedor" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.tipoDocumento" for="field_tipoDocumento">Tipo Documento</label>
+            <select class="form-control" name="tipoDocumento" [(ngModel)]="userExtra.tipoDocumento" id="field_tipoDocumento" >
+                <option value="DNI">{{'paynowApp.TipoDocumento.DNI' | translate}}</option>
+                <option value="RUC">{{'paynowApp.TipoDocumento.RUC' | translate}}</option>
+                <option value="PASPORT">{{'paynowApp.TipoDocumento.PASPORT' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.numeroDocumento" for="field_numeroDocumento">Numero Documento</label>
+            <input type="text" class="form-control" name="numeroDocumento" id="field_numeroDocumento"
+                [(ngModel)]="userExtra.numeroDocumento" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.tipoContribuyente" for="field_tipoContribuyente">Tipo Contribuyente</label>
+            <select class="form-control" name="tipoContribuyente" [(ngModel)]="userExtra.tipoContribuyente" id="field_tipoContribuyente" >
+                <option value="RN">{{'paynowApp.TipoContribuyente.RN' | translate}}</option>
+                <option value="RNI">{{'paynowApp.TipoContribuyente.RNI' | translate}}</option>
+                <option value="EX">{{'paynowApp.TipoContribuyente.EX' | translate}}</option>
+                <option value="CF">{{'paynowApp.TipoContribuyente.CF' | translate}}</option>
+                <option value="RM">{{'paynowApp.TipoContribuyente.RM' | translate}}</option>
+                <option value="NC">{{'paynowApp.TipoContribuyente.NC' | translate}}</option>
+                <option value="NR">{{'paynowApp.TipoContribuyente.NR' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.userExtra.usuario" for="field_usuario">Usuario</label>
+            <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="userExtra.usuario"  required>
+                <option *ngIf="!editForm.value.usuario" [ngValue]="null" selected></option>
+                <option [ngValue]="userOption.id === userExtra.usuario?.id ? userExtra.usuario : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.usuario?.dirty && editForm.controls.usuario?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.usuario?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

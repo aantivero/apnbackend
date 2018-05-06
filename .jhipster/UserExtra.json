@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "usuario",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userExtra"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "telefono",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendedor",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "tipoDocumento",
+            "fieldType": "TipoDocumento",
+            "fieldValues": "DNI, RUC, PASPORT"
+        },
+        {
+            "fieldName": "numeroDocumento",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tipoContribuyente",
+            "fieldType": "TipoContribuyente",
+            "fieldValues": "RN, RNI, EX, CF, RM, NC, NR"
+        }
+    ],
+    "changelogDate": "20180505205154",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "user_extra",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

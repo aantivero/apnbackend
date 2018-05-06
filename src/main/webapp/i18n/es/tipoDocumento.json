@@ -1,0 +1,10 @@
+{
+    "paynowApp": {
+        "TipoDocumento" : {
+            "null": "",
+            "DNI": "DNI",
+            "RUC": "RUC",
+            "PASPORT": "PASPORT"
+        }
+    }
+}

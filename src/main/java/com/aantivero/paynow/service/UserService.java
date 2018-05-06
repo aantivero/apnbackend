@@ -3,6 +3,7 @@ package com.aantivero.paynow.service;
 import com.aantivero.paynow.config.CacheConfiguration;
 import com.aantivero.paynow.domain.Authority;
 import com.aantivero.paynow.domain.User;
+import com.aantivero.paynow.domain.UserExtra;
 import com.aantivero.paynow.repository.AuthorityRepository;
 import com.aantivero.paynow.config.Constants;
 import com.aantivero.paynow.repository.UserRepository;
@@ -12,6 +13,7 @@ import com.aantivero.paynow.security.SecurityUtils;
 import com.aantivero.paynow.service.util.RandomUtil;
 import com.aantivero.paynow.service.dto.UserDTO;
 
+import com.aantivero.paynow.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -46,12 +48,17 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final UserExtraService userExtraService;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository,
+                       CacheManager cacheManager, UserExtraService userExtraService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userExtraService = userExtraService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -96,7 +103,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(ManagedUserVM userDTO, String password) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -121,7 +128,17 @@ public class UserService {
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(newUser.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(newUser.getEmail());
         log.debug("Created Information for User: {}", newUser);
+        registerUserExtra(userDTO, newUser);
         return newUser;
+    }
+
+    public UserExtra registerUserExtra(ManagedUserVM managedUserVM, User user) {
+        UserExtra newUserExtra = new UserExtra();
+        newUserExtra.setUsuario(user);
+        newUserExtra.setTelefono(managedUserVM.getTelefono());
+        newUserExtra = userExtraService.save(newUserExtra);
+        log.debug("Creada información extra de usuario: {}", newUserExtra);
+        return newUserExtra;
     }
 
     public User createUser(UserDTO userDTO) {

@@ -1,0 +1,14 @@
+{
+    "paynowApp": {
+        "TipoContribuyente" : {
+            "null": "",
+            "RN": "RN",
+            "RNI": "RNI",
+            "EX": "EX",
+            "CF": "CF",
+            "RM": "RM",
+            "NC": "NC",
+            "NR": "NR"
+        }
+    }
+}
