@@ -7,11 +7,10 @@ import com.aantivero.paynow.domain.User;
 import com.aantivero.paynow.domain.Cuenta;
 import com.aantivero.paynow.domain.TransferenciaApp;
 import com.aantivero.paynow.repository.CargarSaldoRepository;
-import com.aantivero.paynow.service.CargarSaldoService;
+import com.aantivero.paynow.service.*;
 import com.aantivero.paynow.repository.search.CargarSaldoSearchRepository;
 import com.aantivero.paynow.web.rest.errors.ExceptionTranslator;
 import com.aantivero.paynow.service.dto.CargarSaldoCriteria;
-import com.aantivero.paynow.service.CargarSaldoQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,10 +76,35 @@ public class CargarSaldoResourceIntTest {
 
     private CargarSaldo cargarSaldo;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TransferenciaAppService transferenciaAppService;
+
+    @Autowired
+    private CuentaAppService cuentaAppService;
+
+    @Autowired
+    private SaldoService saldoService;
+
+    @Autowired
+    private SaldoQueryService saldoQueryService;
+
+    @Autowired
+    private CuentaService cuentaService;
+
+    @Autowired
+    private CuentaQueryService cuentaQueryService;
+
+    @Autowired
+    private AppService appService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CargarSaldoResource cargarSaldoResource = new CargarSaldoResource(cargarSaldoService, cargarSaldoQueryService);
+        final CargarSaldoResource cargarSaldoResource = new CargarSaldoResource(cargarSaldoService, cargarSaldoQueryService,
+            userService, transferenciaAppService, cuentaAppService, saldoService, saldoQueryService, cuentaService, cuentaQueryService, appService);
         this.restCargarSaldoMockMvc = MockMvcBuilders.standaloneSetup(cargarSaldoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

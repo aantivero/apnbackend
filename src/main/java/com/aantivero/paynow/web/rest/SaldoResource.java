@@ -1,5 +1,7 @@
 package com.aantivero.paynow.web.rest;
 
+import com.aantivero.paynow.domain.User;
+import com.aantivero.paynow.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import com.aantivero.paynow.domain.Saldo;
 import com.aantivero.paynow.service.SaldoService;
@@ -8,6 +10,7 @@ import com.aantivero.paynow.web.rest.util.HeaderUtil;
 import com.aantivero.paynow.web.rest.util.PaginationUtil;
 import com.aantivero.paynow.service.dto.SaldoCriteria;
 import com.aantivero.paynow.service.SaldoQueryService;
+import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +46,12 @@ public class SaldoResource {
 
     private final SaldoQueryService saldoQueryService;
 
-    public SaldoResource(SaldoService saldoService, SaldoQueryService saldoQueryService) {
+    private final UserService userService;
+
+    public SaldoResource(SaldoService saldoService, SaldoQueryService saldoQueryService, UserService userService) {
         this.saldoService = saldoService;
         this.saldoQueryService = saldoQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -101,6 +107,12 @@ public class SaldoResource {
     @Timed
     public ResponseEntity<List<Saldo>> getAllSaldos(SaldoCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Saldos by criteria: {}", criteria);
+        Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
+        if (userWithAuthorities.isPresent()) {
+            LongFilter filter = new LongFilter();
+            filter.setEquals(userWithAuthorities.get().getId());
+            criteria.setUsuarioId(filter);
+        }
         Page<Saldo> page = saldoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/saldos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

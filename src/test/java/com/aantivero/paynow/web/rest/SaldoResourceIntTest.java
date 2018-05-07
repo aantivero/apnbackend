@@ -8,6 +8,7 @@ import com.aantivero.paynow.domain.App;
 import com.aantivero.paynow.repository.SaldoRepository;
 import com.aantivero.paynow.service.SaldoService;
 import com.aantivero.paynow.repository.search.SaldoSearchRepository;
+import com.aantivero.paynow.service.UserService;
 import com.aantivero.paynow.web.rest.errors.ExceptionTranslator;
 import com.aantivero.paynow.service.dto.SaldoCriteria;
 import com.aantivero.paynow.service.SaldoQueryService;
@@ -92,10 +93,13 @@ public class SaldoResourceIntTest {
 
     private Saldo saldo;
 
+    @Autowired
+    private UserService userService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SaldoResource saldoResource = new SaldoResource(saldoService, saldoQueryService);
+        final SaldoResource saldoResource = new SaldoResource(saldoService, saldoQueryService, userService);
         this.restSaldoMockMvc = MockMvcBuilders.standaloneSetup(saldoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -1,5 +1,9 @@
 package com.aantivero.paynow.web.rest;
 
+import com.aantivero.paynow.domain.User;
+import com.aantivero.paynow.security.AuthoritiesConstants;
+import com.aantivero.paynow.security.SecurityUtils;
+import com.aantivero.paynow.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import com.aantivero.paynow.domain.Cuenta;
 import com.aantivero.paynow.service.CuentaService;
@@ -8,6 +12,7 @@ import com.aantivero.paynow.web.rest.util.HeaderUtil;
 import com.aantivero.paynow.web.rest.util.PaginationUtil;
 import com.aantivero.paynow.service.dto.CuentaCriteria;
 import com.aantivero.paynow.service.CuentaQueryService;
+import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,9 +49,12 @@ public class CuentaResource {
 
     private final CuentaQueryService cuentaQueryService;
 
-    public CuentaResource(CuentaService cuentaService, CuentaQueryService cuentaQueryService) {
+    private final UserService userService;
+
+    public CuentaResource(CuentaService cuentaService, CuentaQueryService cuentaQueryService, UserService userService) {
         this.cuentaService = cuentaService;
         this.cuentaQueryService = cuentaQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -101,8 +110,24 @@ public class CuentaResource {
     @Timed
     public ResponseEntity<List<Cuenta>> getAllCuentas(CuentaCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Cuentas by criteria: {}", criteria);
+        Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
+        if (userWithAuthorities.isPresent()) {
+            LongFilter filter = new LongFilter();
+            filter.setEquals(userWithAuthorities.get().getId());
+            criteria.setUsuarioId(filter);
+        }
         Page<Cuenta> page = cuentaQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cuentas");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/cuentas-all")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<Cuenta>> getAllCuentasAdmin(CuentaCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Cuentas by criteria: {}", criteria);
+        Page<Cuenta> page = cuentaQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cuentas-all");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

@@ -8,6 +8,7 @@ import com.aantivero.paynow.domain.Banco;
 import com.aantivero.paynow.repository.CuentaRepository;
 import com.aantivero.paynow.service.CuentaService;
 import com.aantivero.paynow.repository.search.CuentaSearchRepository;
+import com.aantivero.paynow.service.UserService;
 import com.aantivero.paynow.web.rest.errors.ExceptionTranslator;
 import com.aantivero.paynow.service.dto.CuentaCriteria;
 import com.aantivero.paynow.service.CuentaQueryService;
@@ -122,10 +123,13 @@ public class CuentaResourceIntTest {
 
     private Cuenta cuenta;
 
+    @Autowired
+    private UserService userService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CuentaResource cuentaResource = new CuentaResource(cuentaService, cuentaQueryService);
+        final CuentaResource cuentaResource = new CuentaResource(cuentaService, cuentaQueryService, userService);
         this.restCuentaMockMvc = MockMvcBuilders.standaloneSetup(cuentaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

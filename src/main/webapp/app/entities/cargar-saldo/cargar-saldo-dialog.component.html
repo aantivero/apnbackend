@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.usuario" for="field_usuario">Usuario</label>
             <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="cargarSaldo.usuario"  required>
                 <option *ngIf="!editForm.value.usuario" [ngValue]="null" selected></option>
@@ -44,7 +44,7 @@
                 [hidden]="!editForm.controls.usuario?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
-        </div>
+        </div>-->
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.cuenta" for="field_cuenta">Cuenta</label>
             <select class="form-control" id="field_cuenta" name="cuenta" [(ngModel)]="cargarSaldo.cuenta"  required>
@@ -58,13 +58,17 @@
                 This field is required.
             </small>
         </div>
-        <div class="form-group">
+        <div *ngIf="cargarSaldo.cuenta?.id !== null">
+            <p class="text-center">Cuenta: {{cargarSaldo.cuenta?.aliasCbu}} || {{cargarSaldo.cuenta?.moneda}} || {{cargarSaldo.cuenta?.saldo}}</p>
+            <p class="text-center">Banco: {{cargarSaldo.cuenta?.banco?.nombre}}</p>
+        </div>
+        <!--<div class="form-group">
             <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.transferenciaApp" for="field_transferenciaApp">Transferencia App</label>
             <select class="form-control" id="field_transferenciaApp" name="transferenciaApp" [(ngModel)]="cargarSaldo.transferenciaApp">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="transferenciaAppOption.id === cargarSaldo.transferenciaApp?.id ? cargarSaldo.transferenciaApp : transferenciaAppOption" *ngFor="let transferenciaAppOption of transferenciaapps; trackBy: trackTransferenciaAppById">{{transferenciaAppOption.id}}</option>
             </select>
-        </div>
+        </div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

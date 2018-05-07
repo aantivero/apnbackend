@@ -56,7 +56,7 @@ public class TransferenciaAppService {
         log.debug("Request to save TransferenciaApp : {}", transferenciaApp);
         //verficar que la cuenta de origen tiene saldo
         CuentaApp cuentaApp = cuentaAppService.findOne(transferenciaApp.getOrigen().getId());
-        if(cuentaApp.getSaldo().compareTo(transferenciaApp.getMonto()) < 0) {
+        if(cuentaApp.getSaldo().compareTo(transferenciaApp.getMonto()) < 0 && transferenciaApp.getTipoTransferencia().equals(TipoTransferencia.TRANSFERENCIA)) {
             //TODO falta manejo de excepciones del tipo de negocio
             log.error("La cuenta " + cuentaApp + " no tiene saldo suficiente: " + transferenciaApp.getMonto());
             return null;

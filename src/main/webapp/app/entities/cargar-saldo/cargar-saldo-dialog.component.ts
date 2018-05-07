@@ -43,7 +43,7 @@ export class CargarSaldoDialogComponent implements OnInit {
         this.isSaving = false;
         this.userService.query()
             .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.cuentaService.query()
+        this.cuentaService.query({'tipo.in': 'BANCARIA'})
             .subscribe((res: HttpResponse<Cuenta[]>) => { this.cuentas = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.transferenciaAppService
             .query({filter: 'cargarsaldo-is-null'})
