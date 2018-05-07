@@ -1,0 +1,115 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "usuario",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cuenta"
+        },
+        {
+            "relationshipName": "banco",
+            "otherEntityName": "banco",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "2"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "moneda",
+            "fieldType": "Moneda",
+            "fieldValues": "PESOS, DOLAR",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "saldo",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoCuenta",
+            "fieldValues": "VIRTUAL, BANCARIA",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cbu",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "aliasCbu",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fechaCreacion",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "fechaModificacion",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "habilitada",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paraCredito",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paraDebito",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "maximoCredito",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "maximoDebito",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "codigoSeguridad",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180506194842",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "cuenta",
+    "jpaMetamodelFiltering": true,
+    "pagination": "pagination"
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Saldo.
+    -->
+    <changeSet id="20180506220847-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="usuario_id"
+                                 baseTableName="saldo"
+                                 constraintName="fk_saldo_usuario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="aplicacion_id"
+                                 baseTableName="saldo"
+                                 constraintName="fk_saldo_aplicacion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app"/>
+
+    </changeSet>
+</databaseChangeLog>

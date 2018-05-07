@@ -1,0 +1,92 @@
+
+<div *ngIf="cuenta">
+    <h2><span jhiTranslate="paynowApp.cuenta.detail.title">Cuenta</span> {{cuenta.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.cuenta.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{cuenta.nombre}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{cuenta.descripcion}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + cuenta.moneda}}">{{cuenta.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.saldo">Saldo</span></dt>
+        <dd>
+            <span>{{cuenta.saldo}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.tipo">Tipo</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.TipoCuenta.' + cuenta.tipo}}">{{cuenta.tipo}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.cbu">Cbu</span></dt>
+        <dd>
+            <span>{{cuenta.cbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.aliasCbu">Alias Cbu</span></dt>
+        <dd>
+            <span>{{cuenta.aliasCbu}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.fechaCreacion">Fecha Creacion</span></dt>
+        <dd>
+            <span>{{cuenta.fechaCreacion | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.fechaModificacion">Fecha Modificacion</span></dt>
+        <dd>
+            <span>{{cuenta.fechaModificacion | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.habilitada">Habilitada</span></dt>
+        <dd>
+            <span>{{cuenta.habilitada}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.paraCredito">Para Credito</span></dt>
+        <dd>
+            <span>{{cuenta.paraCredito}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.paraDebito">Para Debito</span></dt>
+        <dd>
+            <span>{{cuenta.paraDebito}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.maximoCredito">Maximo Credito</span></dt>
+        <dd>
+            <span>{{cuenta.maximoCredito}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.maximoDebito">Maximo Debito</span></dt>
+        <dd>
+            <span>{{cuenta.maximoDebito}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.codigoSeguridad">Codigo Seguridad</span></dt>
+        <dd>
+            <span>{{cuenta.codigoSeguridad}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.usuario">Usuario</span></dt>
+        <dd>
+            {{cuenta.usuario?.login}}
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cuenta.banco">Banco</span></dt>
+        <dd>
+            <div *ngIf="cuenta.banco">
+                <a [routerLink]="['/banco', cuenta.banco?.id]">{{cuenta.banco?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cuenta/'+ cuenta.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

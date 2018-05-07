@@ -1,0 +1,9 @@
+{
+    "paynowApp": {
+        "TipoCuenta" : {
+            "null": "",
+            "VIRTUAL": "VIRTUAL",
+            "BANCARIA": "BANCARIA"
+        }
+    }
+}

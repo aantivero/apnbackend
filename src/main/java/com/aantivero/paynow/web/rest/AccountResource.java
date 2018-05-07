@@ -1,5 +1,6 @@
 package com.aantivero.paynow.web.rest;
 
+import com.aantivero.paynow.service.CuentaService;
 import com.aantivero.paynow.service.UserExtraService;
 import com.codahale.metrics.annotation.Timed;
 
@@ -38,11 +39,14 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final CuentaService cuentaService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, CuentaService cuentaService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.cuentaService = cuentaService;
     }
 
     /**
@@ -64,6 +68,8 @@ public class AccountResource {
         userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail()).ifPresent(u -> {throw new EmailAlreadyUsedException();});
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+        //crear cuenta virtuales sin saldo
+        cuentaService.crearCuentaVirtualDeshabilitada(user);
     }
 
     /**
@@ -79,6 +85,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new InternalServerErrorException("No user was found for this reset key");
         }
+        cuentaService.habilitarCuentaVirtual(user.get());
     }
 
     /**

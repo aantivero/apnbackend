@@ -1,0 +1,39 @@
+
+{
+    "paynowApp": {
+        "cuenta" : {
+            "home": {
+                "title": "Cuentas",
+                "createLabel": "Create a new Cuenta",
+                "createOrEditLabel": "Create or edit a Cuenta",
+                "search": "Search for Cuenta"
+            },
+            "created": "A new Cuenta is created with identifier {{ param }}",
+            "updated": "A Cuenta is updated with identifier {{ param }}",
+            "deleted": "A Cuenta is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cuenta {{ id }}?"
+            },
+            "detail": {
+                "title": "Cuenta"
+            },
+            "nombre": "Nombre",
+            "descripcion": "Descripcion",
+            "moneda": "Moneda",
+            "saldo": "Saldo",
+            "tipo": "Tipo",
+            "cbu": "Cbu",
+            "aliasCbu": "Alias Cbu",
+            "fechaCreacion": "Fecha Creacion",
+            "fechaModificacion": "Fecha Modificacion",
+            "habilitada": "Habilitada",
+            "paraCredito": "Para Credito",
+            "paraDebito": "Para Debito",
+            "maximoCredito": "Maximo Credito",
+            "maximoDebito": "Maximo Debito",
+            "codigoSeguridad": "Codigo Seguridad",
+            "usuario": "Usuario",
+            "banco": "Banco"
+        }
+    }
+}

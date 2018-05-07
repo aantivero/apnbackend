@@ -1,0 +1,97 @@
+<div>
+    <h2>
+        <span jhiTranslate="paynowApp.saldo.home.title">Saldos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-saldo" [routerLink]="['/', { outlets: { popup: ['saldo-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="paynowApp.saldo.home.createLabel">
+            Create new Saldo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'paynowApp.saldo.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="saldos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="monto"><span jhiTranslate="paynowApp.saldo.monto">Monto</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="moneda"><span jhiTranslate="paynowApp.saldo.moneda">Moneda</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="paynowApp.saldo.tipo">Tipo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fechaCreacion"><span jhiTranslate="paynowApp.saldo.fechaCreacion">Fecha Creacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fechaModificacion"><span jhiTranslate="paynowApp.saldo.fechaModificacion">Fecha Modificacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuario.login"><span jhiTranslate="paynowApp.saldo.usuario">Usuario</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="aplicacion.nombre"><span jhiTranslate="paynowApp.saldo.aplicacion">Aplicacion</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let saldo of saldos ;trackBy: trackId">
+                <td><a [routerLink]="['../saldo', saldo.id ]">{{saldo.id}}</a></td>
+                <td>{{saldo.monto}}</td>
+                <td jhiTranslate="{{'paynowApp.Moneda.' + saldo.moneda}}">{{saldo.moneda}}</td>
+                <td jhiTranslate="{{'paynowApp.TipoCuenta.' + saldo.tipo}}">{{saldo.tipo}}</td>
+                <td>{{saldo.fechaCreacion | date:'medium'}}</td>
+                <td>{{saldo.fechaModificacion | date:'medium'}}</td>
+                <td>
+                    {{saldo.usuario?.login}}
+                </td>
+                <td>
+                    <div *ngIf="saldo.aplicacion">
+                        <a [routerLink]="['../app', saldo.aplicacion?.id ]" >{{saldo.aplicacion?.nombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../saldo', saldo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'saldo/'+ saldo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'saldo/'+ saldo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="saldos && saldos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

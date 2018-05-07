@@ -1,0 +1,52 @@
+
+<div *ngIf="saldo">
+    <h2><span jhiTranslate="paynowApp.saldo.detail.title">Saldo</span> {{saldo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.saldo.monto">Monto</span></dt>
+        <dd>
+            <span>{{saldo.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.moneda">Moneda</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.Moneda.' + saldo.moneda}}">{{saldo.moneda}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.tipo">Tipo</span></dt>
+        <dd>
+            <span jhiTranslate="{{'paynowApp.TipoCuenta.' + saldo.tipo}}">{{saldo.tipo}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.fechaCreacion">Fecha Creacion</span></dt>
+        <dd>
+            <span>{{saldo.fechaCreacion | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.fechaModificacion">Fecha Modificacion</span></dt>
+        <dd>
+            <span>{{saldo.fechaModificacion | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.usuario">Usuario</span></dt>
+        <dd>
+            {{saldo.usuario?.login}}
+        </dd>
+        <dt><span jhiTranslate="paynowApp.saldo.aplicacion">Aplicacion</span></dt>
+        <dd>
+            <div *ngIf="saldo.aplicacion">
+                <a [routerLink]="['/app', saldo.aplicacion?.id]">{{saldo.aplicacion?.nombre}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'saldo/'+ saldo.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

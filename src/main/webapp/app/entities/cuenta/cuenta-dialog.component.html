@@ -1,0 +1,178 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCuentaLabel" jhiTranslate="paynowApp.cuenta.home.createOrEditLabel">Create or edit a Cuenta</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!cuenta.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="cuenta.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                [(ngModel)]="cuenta.nombre" required minlength="2"/>
+            <div [hidden]="!(editForm.controls.nombre?.dirty && editForm.controls.nombre?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nombre?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nombre?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                   This field is required to be at least 2 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.descripcion" for="field_descripcion">Descripcion</label>
+            <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                [(ngModel)]="cuenta.descripcion" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.moneda" for="field_moneda">Moneda</label>
+            <select class="form-control" name="moneda" [(ngModel)]="cuenta.moneda" id="field_moneda"  required>
+                <option value="PESOS">{{'paynowApp.Moneda.PESOS' | translate}}</option>
+                <option value="DOLAR">{{'paynowApp.Moneda.DOLAR' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.moneda?.dirty && editForm.controls.moneda?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.moneda?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.saldo" for="field_saldo">Saldo</label>
+            <input type="number" class="form-control" name="saldo" id="field_saldo"
+                [(ngModel)]="cuenta.saldo" required/>
+            <div [hidden]="!(editForm.controls.saldo?.dirty && editForm.controls.saldo?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.saldo?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.saldo?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.tipo" for="field_tipo">Tipo</label>
+            <select class="form-control" name="tipo" [(ngModel)]="cuenta.tipo" id="field_tipo"  required>
+                <option value="VIRTUAL">{{'paynowApp.TipoCuenta.VIRTUAL' | translate}}</option>
+                <option value="BANCARIA">{{'paynowApp.TipoCuenta.BANCARIA' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.tipo?.dirty && editForm.controls.tipo?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.tipo?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.cbu" for="field_cbu">Cbu</label>
+            <input type="text" class="form-control" name="cbu" id="field_cbu"
+                [(ngModel)]="cuenta.cbu" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.aliasCbu" for="field_aliasCbu">Alias Cbu</label>
+            <input type="text" class="form-control" name="aliasCbu" id="field_aliasCbu"
+                [(ngModel)]="cuenta.aliasCbu" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.fechaCreacion" for="field_fechaCreacion">Fecha Creacion</label>
+            <div class="d-flex">
+                <input id="field_fechaCreacion" type="datetime-local" class="form-control" name="fechaCreacion" [(ngModel)]="cuenta.fechaCreacion"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.fechaModificacion" for="field_fechaModificacion">Fecha Modificacion</label>
+            <div class="d-flex">
+                <input id="field_fechaModificacion" type="datetime-local" class="form-control" name="fechaModificacion" [(ngModel)]="cuenta.fechaModificacion"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.habilitada" for="field_habilitada">Habilitada</label>
+            <input type="checkbox" class="form-control" name="habilitada" id="field_habilitada"
+                [(ngModel)]="cuenta.habilitada" />
+            <div [hidden]="!(editForm.controls.habilitada?.dirty && editForm.controls.habilitada?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.habilitada?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.paraCredito" for="field_paraCredito">Para Credito</label>
+            <input type="checkbox" class="form-control" name="paraCredito" id="field_paraCredito"
+                [(ngModel)]="cuenta.paraCredito" />
+            <div [hidden]="!(editForm.controls.paraCredito?.dirty && editForm.controls.paraCredito?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paraCredito?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.paraDebito" for="field_paraDebito">Para Debito</label>
+            <input type="checkbox" class="form-control" name="paraDebito" id="field_paraDebito"
+                [(ngModel)]="cuenta.paraDebito" />
+            <div [hidden]="!(editForm.controls.paraDebito?.dirty && editForm.controls.paraDebito?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paraDebito?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.maximoCredito" for="field_maximoCredito">Maximo Credito</label>
+            <input type="number" class="form-control" name="maximoCredito" id="field_maximoCredito"
+                [(ngModel)]="cuenta.maximoCredito" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.maximoDebito" for="field_maximoDebito">Maximo Debito</label>
+            <input type="number" class="form-control" name="maximoDebito" id="field_maximoDebito"
+                [(ngModel)]="cuenta.maximoDebito" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.codigoSeguridad" for="field_codigoSeguridad">Codigo Seguridad</label>
+            <input type="text" class="form-control" name="codigoSeguridad" id="field_codigoSeguridad"
+                [(ngModel)]="cuenta.codigoSeguridad" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.usuario" for="field_usuario">Usuario</label>
+            <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="cuenta.usuario"  required>
+                <option *ngIf="!editForm.value.usuario" [ngValue]="null" selected></option>
+                <option [ngValue]="userOption.id === cuenta.usuario?.id ? cuenta.usuario : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.usuario?.dirty && editForm.controls.usuario?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.usuario?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cuenta.banco" for="field_banco">Banco</label>
+            <select class="form-control" id="field_banco" name="banco" [(ngModel)]="cuenta.banco" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="bancoOption.id === cuenta.banco?.id ? cuenta.banco : bancoOption" *ngFor="let bancoOption of bancos; trackBy: trackBancoById">{{bancoOption.nombre}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

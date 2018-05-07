@@ -1,0 +1,29 @@
+
+{
+    "paynowApp": {
+        "saldo" : {
+            "home": {
+                "title": "Saldos",
+                "createLabel": "Create a new Saldo",
+                "createOrEditLabel": "Create or edit a Saldo",
+                "search": "Search for Saldo"
+            },
+            "created": "A new Saldo is created with identifier {{ param }}",
+            "updated": "A Saldo is updated with identifier {{ param }}",
+            "deleted": "A Saldo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Saldo {{ id }}?"
+            },
+            "detail": {
+                "title": "Saldo"
+            },
+            "monto": "Monto",
+            "moneda": "Moneda",
+            "tipo": "Tipo",
+            "fechaCreacion": "Fecha Creacion",
+            "fechaModificacion": "Fecha Modificacion",
+            "usuario": "Usuario",
+            "aplicacion": "Aplicacion"
+        }
+    }
+}

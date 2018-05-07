@@ -7,6 +7,7 @@ import com.aantivero.paynow.domain.User;
 import com.aantivero.paynow.repository.AuthorityRepository;
 import com.aantivero.paynow.repository.UserRepository;
 import com.aantivero.paynow.security.AuthoritiesConstants;
+import com.aantivero.paynow.service.CuentaService;
 import com.aantivero.paynow.service.MailService;
 import com.aantivero.paynow.service.dto.UserDTO;
 import com.aantivero.paynow.web.rest.errors.ExceptionTranslator;
@@ -80,15 +81,18 @@ public class AccountResourceIntTest {
 
     private MockMvc restUserMockMvc;
 
+    @Autowired
+    private CuentaService cuentaService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(anyObject());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailService, cuentaService);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailService, cuentaService);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)

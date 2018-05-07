@@ -14,6 +14,8 @@
                 "transferenciaApp": "Transferencia App",
                 "movimientoApp": "Movimiento App",
                 "userExtra": "User Extra",
+                "cuenta": "Cuenta",
+                "saldo": "Saldo",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

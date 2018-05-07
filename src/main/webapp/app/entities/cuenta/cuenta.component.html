@@ -1,0 +1,117 @@
+<div>
+    <h2>
+        <span jhiTranslate="paynowApp.cuenta.home.title">Cuentas</span>
+        <button class="btn btn-primary float-right jh-create-entity create-cuenta" [routerLink]="['/', { outlets: { popup: ['cuenta-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="paynowApp.cuenta.home.createLabel">
+            Create new Cuenta
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'paynowApp.cuenta.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="cuentas">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nombre"><span jhiTranslate="paynowApp.cuenta.nombre">Nombre</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="descripcion"><span jhiTranslate="paynowApp.cuenta.descripcion">Descripcion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="moneda"><span jhiTranslate="paynowApp.cuenta.moneda">Moneda</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="saldo"><span jhiTranslate="paynowApp.cuenta.saldo">Saldo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="paynowApp.cuenta.tipo">Tipo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cbu"><span jhiTranslate="paynowApp.cuenta.cbu">Cbu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="aliasCbu"><span jhiTranslate="paynowApp.cuenta.aliasCbu">Alias Cbu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fechaCreacion"><span jhiTranslate="paynowApp.cuenta.fechaCreacion">Fecha Creacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fechaModificacion"><span jhiTranslate="paynowApp.cuenta.fechaModificacion">Fecha Modificacion</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="habilitada"><span jhiTranslate="paynowApp.cuenta.habilitada">Habilitada</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="paraCredito"><span jhiTranslate="paynowApp.cuenta.paraCredito">Para Credito</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="paraDebito"><span jhiTranslate="paynowApp.cuenta.paraDebito">Para Debito</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximoCredito"><span jhiTranslate="paynowApp.cuenta.maximoCredito">Maximo Credito</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximoDebito"><span jhiTranslate="paynowApp.cuenta.maximoDebito">Maximo Debito</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="codigoSeguridad"><span jhiTranslate="paynowApp.cuenta.codigoSeguridad">Codigo Seguridad</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuario.login"><span jhiTranslate="paynowApp.cuenta.usuario">Usuario</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="banco.nombre"><span jhiTranslate="paynowApp.cuenta.banco">Banco</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cuenta of cuentas ;trackBy: trackId">
+                <td><a [routerLink]="['../cuenta', cuenta.id ]">{{cuenta.id}}</a></td>
+                <td>{{cuenta.nombre}}</td>
+                <td>{{cuenta.descripcion}}</td>
+                <td jhiTranslate="{{'paynowApp.Moneda.' + cuenta.moneda}}">{{cuenta.moneda}}</td>
+                <td>{{cuenta.saldo}}</td>
+                <td jhiTranslate="{{'paynowApp.TipoCuenta.' + cuenta.tipo}}">{{cuenta.tipo}}</td>
+                <td>{{cuenta.cbu}}</td>
+                <td>{{cuenta.aliasCbu}}</td>
+                <td>{{cuenta.fechaCreacion | date:'medium'}}</td>
+                <td>{{cuenta.fechaModificacion | date:'medium'}}</td>
+                <td>{{cuenta.habilitada}}</td>
+                <td>{{cuenta.paraCredito}}</td>
+                <td>{{cuenta.paraDebito}}</td>
+                <td>{{cuenta.maximoCredito}}</td>
+                <td>{{cuenta.maximoDebito}}</td>
+                <td>{{cuenta.codigoSeguridad}}</td>
+                <td>
+                    {{cuenta.usuario?.login}}
+                </td>
+                <td>
+                    <div *ngIf="cuenta.banco">
+                        <a [routerLink]="['../banco', cuenta.banco?.id ]" >{{cuenta.banco?.nombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../cuenta', cuenta.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'cuenta/'+ cuenta.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'cuenta/'+ cuenta.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="cuentas && cuentas.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
