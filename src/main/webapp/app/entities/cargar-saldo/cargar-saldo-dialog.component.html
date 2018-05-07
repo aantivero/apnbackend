@@ -1,0 +1,77 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCargarSaldoLabel" jhiTranslate="paynowApp.cargarSaldo.home.createOrEditLabel">Create or edit a Cargar Saldo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!cargarSaldo.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="cargarSaldo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.monto" for="field_monto">Monto</label>
+            <input type="number" class="form-control" name="monto" id="field_monto"
+                [(ngModel)]="cargarSaldo.monto" required min="0"/>
+            <div [hidden]="!(editForm.controls.monto?.dirty && editForm.controls.monto?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.monto?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.monto?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.monto?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.usuario" for="field_usuario">Usuario</label>
+            <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="cargarSaldo.usuario"  required>
+                <option *ngIf="!editForm.value.usuario" [ngValue]="null" selected></option>
+                <option [ngValue]="userOption.id === cargarSaldo.usuario?.id ? cargarSaldo.usuario : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.usuario?.dirty && editForm.controls.usuario?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.usuario?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.cuenta" for="field_cuenta">Cuenta</label>
+            <select class="form-control" id="field_cuenta" name="cuenta" [(ngModel)]="cargarSaldo.cuenta"  required>
+                <option *ngIf="!editForm.value.cuenta" [ngValue]="null" selected></option>
+                <option [ngValue]="cuentaOption.id === cargarSaldo.cuenta?.id ? cargarSaldo.cuenta : cuentaOption" *ngFor="let cuentaOption of cuentas; trackBy: trackCuentaById">{{cuentaOption.nombre}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.cuenta?.dirty && editForm.controls.cuenta?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.cuenta?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="paynowApp.cargarSaldo.transferenciaApp" for="field_transferenciaApp">Transferencia App</label>
+            <select class="form-control" id="field_transferenciaApp" name="transferenciaApp" [(ngModel)]="cargarSaldo.transferenciaApp">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="transferenciaAppOption.id === cargarSaldo.transferenciaApp?.id ? cargarSaldo.transferenciaApp : transferenciaAppOption" *ngFor="let transferenciaAppOption of transferenciaapps; trackBy: trackTransferenciaAppById">{{transferenciaAppOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

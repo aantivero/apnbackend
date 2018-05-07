@@ -9,6 +9,7 @@ import { PaynowMovimientoAppModule } from './movimiento-app/movimiento-app.modul
 import { PaynowUserExtraModule } from './user-extra/user-extra.module';
 import { PaynowCuentaModule } from './cuenta/cuenta.module';
 import { PaynowSaldoModule } from './saldo/saldo.module';
+import { PaynowCargarSaldoModule } from './cargar-saldo/cargar-saldo.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PaynowSaldoModule } from './saldo/saldo.module';
         PaynowUserExtraModule,
         PaynowCuentaModule,
         PaynowSaldoModule,
+        PaynowCargarSaldoModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

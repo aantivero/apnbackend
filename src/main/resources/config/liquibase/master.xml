@@ -14,6 +14,7 @@
     <include file="config/liquibase/changelog/20180505205154_added_entity_UserExtra.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180506194842_added_entity_Cuenta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180506220847_added_entity_Saldo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180507012717_added_entity_CargarSaldo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180422193150_added_entity_constraints_SaldoApp.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180422195333_added_entity_constraints_CuentaApp.xml" relativeToChangelogFile="false"/>
@@ -22,5 +23,6 @@
     <include file="config/liquibase/changelog/20180505205154_added_entity_constraints_UserExtra.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180506194842_added_entity_constraints_Cuenta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180506220847_added_entity_constraints_Saldo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180507012717_added_entity_constraints_CargarSaldo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

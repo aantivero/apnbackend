@@ -16,6 +16,7 @@
                 "userExtra": "User Extra",
                 "cuenta": "Cuenta",
                 "saldo": "Saldo",
+                "cargarSaldo": "Cargar Saldo",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,0 +1,42 @@
+
+<div *ngIf="cargarSaldo">
+    <h2><span jhiTranslate="paynowApp.cargarSaldo.detail.title">Cargar Saldo</span> {{cargarSaldo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="paynowApp.cargarSaldo.monto">Monto</span></dt>
+        <dd>
+            <span>{{cargarSaldo.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cargarSaldo.usuario">Usuario</span></dt>
+        <dd>
+            {{cargarSaldo.usuario?.login}}
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cargarSaldo.cuenta">Cuenta</span></dt>
+        <dd>
+            <div *ngIf="cargarSaldo.cuenta">
+                <a [routerLink]="['/cuenta', cargarSaldo.cuenta?.id]">{{cargarSaldo.cuenta?.nombre}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="paynowApp.cargarSaldo.transferenciaApp">Transferencia App</span></dt>
+        <dd>
+            <div *ngIf="cargarSaldo.transferenciaApp">
+                <a [routerLink]="['/transferencia-app', cargarSaldo.transferenciaApp?.id]">{{cargarSaldo.transferenciaApp?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cargar-saldo/'+ cargarSaldo.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,26 @@
+
+{
+    "paynowApp": {
+        "cargarSaldo" : {
+            "home": {
+                "title": "Cargar Saldos",
+                "createLabel": "Crear nuevo Cargar Saldo",
+                "createOrEditLabel": "Crear o editar Cargar Saldo",
+                "search": "Search for Cargar Saldo"
+            },
+            "created": "Un nuevo Cargar Saldo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Cargar Saldo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Cargar Saldo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Cargar Saldo {{ id }}?"
+            },
+            "detail": {
+                "title": "Cargar Saldo"
+            },
+            "monto": "Monto",
+            "usuario": "Usuario",
+            "cuenta": "Cuenta",
+            "transferenciaApp": "Transferencia App"
+        }
+    }
+}

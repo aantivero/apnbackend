@@ -1,0 +1,26 @@
+
+{
+    "paynowApp": {
+        "cargarSaldo" : {
+            "home": {
+                "title": "Cargar Saldos",
+                "createLabel": "Create a new Cargar Saldo",
+                "createOrEditLabel": "Create or edit a Cargar Saldo",
+                "search": "Search for Cargar Saldo"
+            },
+            "created": "A new Cargar Saldo is created with identifier {{ param }}",
+            "updated": "A Cargar Saldo is updated with identifier {{ param }}",
+            "deleted": "A Cargar Saldo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cargar Saldo {{ id }}?"
+            },
+            "detail": {
+                "title": "Cargar Saldo"
+            },
+            "monto": "Monto",
+            "usuario": "Usuario",
+            "cuenta": "Cuenta",
+            "transferenciaApp": "Transferencia App"
+        }
+    }
+}

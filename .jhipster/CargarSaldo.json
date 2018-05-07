@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "usuario",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cargarSaldo"
+        },
+        {
+            "relationshipName": "cuenta",
+            "otherEntityName": "cuenta",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "transferenciaApp",
+            "otherEntityName": "transferenciaApp",
+            "relationshipType": "one-to-one",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "monto",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        }
+    ],
+    "changelogDate": "20180507012717",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "cargar_saldo",
+    "jpaMetamodelFiltering": true,
+    "pagination": "pagination"
+}
