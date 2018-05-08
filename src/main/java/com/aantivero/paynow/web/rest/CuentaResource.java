@@ -1,6 +1,7 @@
 package com.aantivero.paynow.web.rest;
 
 import com.aantivero.paynow.domain.User;
+import com.aantivero.paynow.domain.enumeration.TipoCuenta;
 import com.aantivero.paynow.security.AuthoritiesConstants;
 import com.aantivero.paynow.security.SecurityUtils;
 import com.aantivero.paynow.service.UserService;
@@ -25,9 +26,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -70,6 +73,30 @@ public class CuentaResource {
         log.debug("REST request to save Cuenta : {}", cuenta);
         if (cuenta.getId() != null) {
             throw new BadRequestAlertException("A new cuenta cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Cuenta result = cuentaService.save(cuenta);
+        return ResponseEntity.created(new URI("/api/cuentas/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/cuentas-mobile")
+    @Timed
+    public ResponseEntity<Cuenta> createCuentaMobile(@RequestBody Cuenta cuenta) throws URISyntaxException {
+        log.debug("REST request to save Cuenta : {}", cuenta);
+        if (cuenta.getId() != null) {
+            throw new BadRequestAlertException("A new cuenta cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
+        if (userWithAuthorities.isPresent()){
+            cuenta.setUsuario(userWithAuthorities.get());
+            cuenta.setTipo(TipoCuenta.BANCARIA);
+            cuenta.setSaldo(BigDecimal.ZERO);
+            cuenta.setHabilitada(true);
+            cuenta.setParaCredito(true);
+            cuenta.setParaDebito(true);
+            cuenta.setFechaModificacion(Instant.now());
+            cuenta.setFechaCreacion(Instant.now());
         }
         Cuenta result = cuentaService.save(cuenta);
         return ResponseEntity.created(new URI("/api/cuentas/" + result.getId()))

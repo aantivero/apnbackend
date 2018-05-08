@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Paynow",
+        "title": "ArPayNow - IB",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
@@ -58,7 +58,7 @@
         "messages": {
             "info": {
                 "authenticated": {
-                    "prefix": "Si desea ",
+                    "prefix": "Si tiene cuenta puede ",
                     "link": "iniciar una sesión",
                     "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
                 },
@@ -146,5 +146,5 @@
         "crearTransferencia": "No se pudo crear la transferencia",
         "modificarTransferencia": "No se pudo modificar la transferencia"
     },
-    "footer": "pie de página"
+    "footer": "DEMO 2018"
 }
