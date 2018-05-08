@@ -128,6 +128,25 @@ public class CuentaService {
         habilitarCuentaVirtual(user, Moneda.DOLAR);
     }
 
+    public void deshabilitarCuentaVirtual(User user) {
+        deshabilitarCuentaVirtual(user, Moneda.PESOS);
+        deshabilitarCuentaVirtual(user, Moneda.DOLAR);
+    }
+
+    private void deshabilitarCuentaVirtual(User user, Moneda moneda) {
+        cuentaRepository.
+            findOneCuentaByUsuarioAndMonedaAndTipoAndHabilitada(user, moneda, TipoCuenta.VIRTUAL, true)
+            .map(cuenta -> {
+                cuenta.setHabilitada(false);
+                cuenta.setParaDebito(false);
+                cuenta.setParaCredito(false);
+                cuenta.setFechaModificacion(Instant.now());
+                cuentaSearchRepository.save(cuenta);
+                log.debug("Deshabilitada la cuenta virtual: {}", cuenta);
+                return cuenta;
+            });
+    }
+
     private void habilitarCuentaVirtual(User user, Moneda moneda) {
         Optional<Cuenta> result = cuentaRepository.
             findOneCuentaByUsuarioAndMonedaAndTipoAndHabilitada(user, moneda, TipoCuenta.VIRTUAL, false)

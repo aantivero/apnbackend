@@ -1,6 +1,7 @@
 package com.aantivero.paynow.web.rest;
 
 import com.aantivero.paynow.config.Constants;
+import com.aantivero.paynow.service.CuentaService;
 import com.codahale.metrics.annotation.Timed;
 import com.aantivero.paynow.domain.User;
 import com.aantivero.paynow.repository.UserRepository;
@@ -73,12 +74,16 @@ public class UserResource {
 
     private final UserSearchRepository userSearchRepository;
 
-    public UserResource(UserRepository userRepository, UserService userService, MailService mailService, UserSearchRepository userSearchRepository) {
+    private final CuentaService cuentaService;
+
+    public UserResource(UserRepository userRepository, UserService userService, MailService mailService,
+                        UserSearchRepository userSearchRepository, CuentaService cuentaService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.userSearchRepository = userSearchRepository;
+        this.cuentaService = cuentaService;
     }
 
     /**
@@ -137,6 +142,11 @@ public class UserResource {
             throw new LoginAlreadyUsedException();
         }
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
+        if (updatedUser.isPresent()){
+            if(updatedUser.get().isActivated()){
+                cuentaService.habilitarCuentaVirtual(existingUser.get());
+            }
+        }
 
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert("userManagement.updated", userDTO.getLogin()));

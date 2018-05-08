@@ -24,13 +24,13 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 '/h2-console',
                 '/auth'
             ],
-            target: 'http://127.0.0.1:8080',
+            target: 'http://127.0.0.1:8888',
             secure: false
         },{
             context: [
                 '/websocket'
             ],
-            target: 'ws://127.0.0.1:8080',
+            target: 'ws://127.0.0.1:8888',
             ws: true
         }],
         watchOptions: {

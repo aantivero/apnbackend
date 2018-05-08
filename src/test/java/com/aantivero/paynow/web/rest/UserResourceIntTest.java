@@ -7,6 +7,7 @@ import com.aantivero.paynow.domain.User;
 import com.aantivero.paynow.repository.UserRepository;
 import com.aantivero.paynow.repository.search.UserSearchRepository;
 import com.aantivero.paynow.security.AuthoritiesConstants;
+import com.aantivero.paynow.service.CuentaService;
 import com.aantivero.paynow.service.MailService;
 import com.aantivero.paynow.service.UserService;
 import com.aantivero.paynow.service.dto.UserDTO;
@@ -105,12 +106,15 @@ public class UserResourceIntTest {
 
     private User user;
 
+    @Autowired
+    private CuentaService cuentaService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userRepository, userService, mailService, userSearchRepository);
+        UserResource userResource = new UserResource(userRepository, userService, mailService, userSearchRepository, cuentaService);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
