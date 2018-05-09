@@ -45,10 +45,16 @@ spring:
             cluster-name:
             cluster-nodes: localhost:9300
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp-mail.outlook.com
+        port: 587
+        username: alejandroantivero@outlook.com
+        password: Agus$Mellis%
+        protocol: smtp
+        tls: true
+        properties.mail.smtp:
+            auth: true
+            starttls.enable: true
+            ssl.trust: stmp-mail.outlook.com
     thymeleaf:
         cache: true
 
@@ -104,8 +110,8 @@ jhipster:
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: paynow@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        from: alejandroantivero@outlook.com
+        base-url: https://arpaynow.herokuapp.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         graphite:
